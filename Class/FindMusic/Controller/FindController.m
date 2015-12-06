@@ -7,7 +7,14 @@
 //
 
 #import "FindController.h"
+#import "CloudMusic.pch"
 
 @implementation FindController
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+}
+
 
 @end

@@ -7,7 +7,13 @@
 //
 
 #import "FriendsController.h"
+#import "CloudMusic.pch"
 
 @implementation FriendsController
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+}
 
 @end
