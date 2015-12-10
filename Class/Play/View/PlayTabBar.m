@@ -36,11 +36,13 @@
     // 左边点击按钮
     UIButton *leftBtn = [[UIButton alloc]init];
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"cm2_topbar_icn_back"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     self.leftBtn = leftBtn;
     
     //右边点击按钮
     UIButton *rightBtn = [[UIButton alloc]init];
     [rightBtn setBackgroundImage:[UIImage imageNamed:@"cm2_topbar_icn_share"] forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
     self.rightBtn = rightBtn;
     
     //歌曲名
@@ -67,6 +69,18 @@
     [self addSubview:singer];
     [self addSubview:crossView];
 }
+
+-(void)back
+{
+    [[self superViewController].navigationController popViewControllerAnimated:YES];
+    [self superViewController].navigationController.navigationBarHidden = NO;
+}
+
+-(void)share
+{
+    NSLog(@"分享");
+}
+
 
 -(void)layoutSubviews
 {

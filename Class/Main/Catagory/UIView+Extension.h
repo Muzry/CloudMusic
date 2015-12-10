@@ -17,4 +17,8 @@
 @property (nonatomic,assign) CGSize size;
 @property (nonatomic,assign) CGFloat width;
 @property (nonatomic,assign) CGFloat height;
+
+
+//寻找父控制器
+- (UIViewController*)superViewController;
 @end
