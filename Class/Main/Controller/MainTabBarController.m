@@ -20,8 +20,6 @@
 {
     [super viewDidLoad];
     
-    [self.tabBar setBackgroundImage:[UIImage imageNamed:@"cm2_btm_bg"]];
-    
     FindController *findVc = [[FindController alloc]init];
     MyMusicController *myMusicVc = [[MyMusicController alloc]init];
     FriendsController *friendVc = [[FriendsController alloc]init];
@@ -31,9 +29,9 @@
     [self addChildVC:myMusicVc title:@"我的音乐" imageName:@"cm2_btm_icn_music" selectedImageName:@"cm2_btm_icn_music_prs"];
     [self addChildVC:friendVc title:@"朋 友" imageName:@"cm2_btm_icn_friend" selectedImageName:@"cm2_btm_icn_friend_prs"];
     [self addChildVC:accountVc title:@"账 号" imageName:@"cm2_btm_icn_account" selectedImageName:@"cm2_btm_icn_account_prs"];
-    
+    [self.tabBar setBackgroundImage:[UIImage imageNamed:@"cm2_btm_bg"]];
     [self.tabBar setSelectedImageTintColor:[UIColor whiteColor]];
-    
+    self.selectedIndex = 1;
 }
 
 -(void) addChildVC:(UIViewController *)childVc title:(NSString *)title imageName:(NSString *)imageName selectedImageName:(NSString *)selectedImageName

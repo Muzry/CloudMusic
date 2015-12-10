@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MainTabBarController.h"
+#import "MainNavigationController.h"
 
 @interface AppDelegate ()
 
@@ -18,13 +19,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    
+    
     UIWindow *window = [[UIWindow alloc]init];
 
     self.window = window;
 
     self.window.frame = [UIScreen mainScreen].bounds;
     
+    [MainNavigationController setupNavTheme];
+    
     self.window.rootViewController = [[MainTabBarController alloc] init];
+    
     
     [self.window makeKeyAndVisible];
     

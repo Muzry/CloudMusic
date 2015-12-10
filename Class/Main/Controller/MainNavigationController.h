@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MainNavigationController : UINavigationController
-
++(void)setupNavTheme;
 @end

@@ -14,13 +14,40 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"cm2_topbar_bg"] forBarMetrics:UIBarMetricsDefault];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+}
+
+
++(void)setupNavTheme
+{
+    UINavigationBar *navBar = [UINavigationBar appearance];
+    navBar.tintColor = [UIColor whiteColor];
+    [navBar setBackgroundImage:[UIImage imageNamed:@"cm2_topbar_bg"] forBarMetrics:UIBarMetricsDefault];
     NSMutableDictionary *att = [NSMutableDictionary dictionary];
     att[NSForegroundColorAttributeName] = [UIColor whiteColor];
+    att[NSFontAttributeName] = [UIFont systemFontOfSize:18];
+    [navBar setTitleTextAttributes:att];
     
-    [self.navigationBar setTitleTextAttributes:att];
+    
+    UIBarButtonItem *item = [UIBarButtonItem appearance];
+    
+    NSMutableDictionary *textAttrs = [NSMutableDictionary dictionary];
+    textAttrs[NSForegroundColorAttributeName] = [UIColor whiteColor];
+    textAttrs[NSFontAttributeName] = [UIFont systemFontOfSize:16];
+    [item setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
 }
+
+
+-(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    
+    if(self.viewControllers.count != 0)
+    {
+        viewController.hidesBottomBarWhenPushed = YES;
+        
+    }
+    [super pushViewController:viewController animated:animated];
+}
+
 
 //+(void)setNavTheme
 //{
