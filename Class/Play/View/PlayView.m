@@ -14,8 +14,7 @@
 
 @property (nonatomic,strong) PlayTabBar * playTabBar;
 @property (nonatomic,strong) UIImageView * maskView;
-@property (nonatomic,strong) UIImageView * topImage;
-@property (nonatomic,strong) UIImageView * backgroundImage;
+@property (nonatomic,strong) UIImageView * backgroundView;
 
 @end
 
@@ -36,22 +35,20 @@
     [self setBackgroundColor:[UIColor whiteColor]];
 
     
-    UIImageView *topImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"cm2_play_disc_mask-ip6"]];
-    self.topImage = topImage;
+    UIImageView *maskView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"cm2_play_disc_mask-ip6"]];
+    self.maskView = maskView;
     
-    UIImageView *maskView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"cm2_play_disc_radio-ip6"]];
-    self.topImage = maskView;
     
-    UIImageView *backgroundImage = [[UIImageView alloc] init];
-    [backgroundImage setImage:[UIImage imageNamed:@"bg"]];
-    self.backgroundImage = backgroundImage;
+#TODO : 模糊效果
+    UIImageView *backgroundView = [[UIImageView alloc] init];
+    [backgroundView setImage:[UIImage imageNamed:@"bg"]];
+    self.backgroundView = backgroundView;
     
     PlayTabBar *playTabBar = [[PlayTabBar alloc]init];
     self.playTabBar = playTabBar;
     
-    [self addSubview:backgroundImage];
+    [self addSubview:backgroundView];
     [self addSubview:maskView];
-    [self addSubview:topImage];
     [self addSubview:playTabBar];
 }
 
@@ -59,8 +56,7 @@
 {
     [super layoutSubviews];
     
-    self.backgroundImage.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
-    self.topImage.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+    self.backgroundView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     self.maskView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     self.playTabBar.frame = CGRectMake(0, 0, ScreenWidth, 64);
 }
