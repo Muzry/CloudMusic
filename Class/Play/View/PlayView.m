@@ -49,14 +49,14 @@
     PlayTabBar *playTabBar = [[PlayTabBar alloc]init];
     self.playTabBar = playTabBar;
     
-    
-    PlayControlView *playControlView = [[PlayControlView alloc] init];
+    PlayControlView *playControlView = [[PlayControlView alloc]init];
     self.playControlView = playControlView;
     
     [self addSubview:backgroundView];
     [self addSubview:maskView];
     [self addSubview:playTabBar];
     [self addSubview:playControlView];
+
 }
 
 -(void)layoutSubviews
@@ -66,10 +66,12 @@
     self.backgroundView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     self.maskView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     self.playTabBar.frame = CGRectMake(0, 0, ScreenWidth, 64);
+    
+    self.playControlView.height = 150;
     self.playControlView.width = ScreenWidth;
-    self.playControlView.height = 100;
     self.playControlView.x = 0;
-    self.playControlView.y = ScreenHeight - self.playControlView.height;
+    self.playControlView.y = self.height - self.playControlView.height;
+
 }
 
 @end
