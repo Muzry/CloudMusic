@@ -11,14 +11,10 @@
 
 @interface PlayOtherControlView()
 
-@property (nonatomic,strong) UISlider *slider;
-@property (nonatomic,strong) UILabel *totalTime;
-@property (nonatomic,strong) UILabel *currentTime;
 @property (nonatomic,strong) UIButton *loveBtn;
 @property (nonatomic,strong) UIButton *downloadBtn;
 @property (nonatomic,strong) UIButton *commentBtn;
 @property (nonatomic,strong) UIButton *moreBtn;
-
 
 @end
 
@@ -54,37 +50,16 @@
     [moreBtn setBackgroundImage:[UIImage imageNamed:@"cm2_play_icn_more"] forState:UIControlStateNormal];
     [moreBtn setBackgroundImage:[UIImage imageNamed:@"cm2_play_icn_more_prs"] forState:UIControlStateHighlighted];
     
-    UILabel *currentTime = [[UILabel alloc]init];
-    currentTime.text = @"00:00";
-    currentTime.textColor = [UIColor whiteColor];
-    currentTime.alpha = 0.8;
-    currentTime.font = [UIFont systemFontOfSize:11];
-    
-    UILabel *totalTime = [[UILabel alloc]init];
-    totalTime.text = @"04:05";
-    totalTime.textColor = [UIColor whiteColor];
-    totalTime.font = [UIFont systemFontOfSize:11];
-    totalTime.alpha = 0.4;
-    
-    UISlider *slider = [[UISlider alloc]init];
-    
     self.loveBtn = loveBtn;
     self.downloadBtn = downloadBtn;
     self.commentBtn = commentBtn;
     self.moreBtn = moreBtn;
-    
-    self.currentTime = currentTime;
-    self.totalTime = totalTime;
-    self.slider = slider;
     
     [self addSubview:loveBtn];
     [self addSubview:downloadBtn];
     [self addSubview:commentBtn];
     [self addSubview:moreBtn];
     
-    [self addSubview:currentTime];
-    [self addSubview:totalTime];
-    [self addSubview:slider];
 }
 
 -(void)layoutSubviews
@@ -103,20 +78,6 @@
         btn.y = btnY;
     }
     
-    self.currentTime.width = 32;
-    self.currentTime.height = 8;
-    self.currentTime.x = 10;
-    self.currentTime.y = self.height - self.currentTime.height;
-    
-    self.totalTime.width = 32;
-    self.totalTime.height = 8;
-    self.totalTime.x = ScreenWidth - self.totalTime.width - 10;
-    self.totalTime.y = self.currentTime.y;
-    
-    self.slider.width = ScreenWidth - 2 * (self.currentTime.x + self.currentTime.width + 5);
-    self.slider.height = 10;
-    self.slider.x = self.currentTime.x + self.currentTime.width + 2;
-    self.slider.y = self.totalTime.y;
 }
 
 @end

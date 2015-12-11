@@ -9,6 +9,7 @@
 #import "PlayView.h"
 #import "PlayTabBar.h"
 #import "PlayControlView.h"
+#import "PlayMainControlView.h"
 #import "CloudMusic.pch"
 #import "UIImage+ImageEffects.h"
 
@@ -18,6 +19,7 @@
 @property (nonatomic,strong) UIImageView * maskView;
 @property (nonatomic,strong) UIImageView * backgroundView;
 @property (nonatomic,strong) PlayControlView *playControlView;
+@property (nonatomic,strong) PlayMainControlView *playMainControlView;
 
 @end
 
@@ -49,12 +51,16 @@
     PlayTabBar *playTabBar = [[PlayTabBar alloc]init];
     self.playTabBar = playTabBar;
     
-    PlayControlView *playControlView = [[PlayControlView alloc]init];
+    PlayControlView* playControlView = [[PlayControlView alloc]init];
     self.playControlView = playControlView;
+    
+    PlayMainControlView* playMainControlView = [[PlayMainControlView alloc]init];
+    self.playMainControlView = playMainControlView;
     
     [self addSubview:backgroundView];
     [self addSubview:maskView];
     [self addSubview:playTabBar];
+    [self addSubview:playMainControlView];
     [self addSubview:playControlView];
 
 }
@@ -67,10 +73,15 @@
     self.maskView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     self.playTabBar.frame = CGRectMake(0, 0, ScreenWidth, 64);
     
-    self.playControlView.height = 150;
-    self.playControlView.width = ScreenWidth;
+    self.playMainControlView.height = 100;
+    self.playMainControlView.width = ScreenWidth;
+    self.playMainControlView.x = 0;
+    self.playMainControlView.y = self.height - self.playMainControlView.height;
+    
     self.playControlView.x = 0;
-    self.playControlView.y = self.height - self.playControlView.height;
+    self.playControlView.y = self.playTabBar.height + 10;
+    self.playControlView.width = ScreenWidth;
+    self.playControlView.height = ScreenHeight - self.playMainControlView.height - self.playTabBar.height - 10 - 30;
 
 }
 

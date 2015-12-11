@@ -13,7 +13,6 @@
 
 @interface PlayControlView()
 
-@property (nonatomic,strong) PlayMainControlView *playMainControlView;
 @property (nonatomic,strong) PlayOtherControlView *playOtherControlView;
 
 @end
@@ -32,13 +31,10 @@
 
 -(void)setup
 {
-    PlayMainControlView *playMainControlView = [[PlayMainControlView alloc] init];
-    self.playMainControlView = playMainControlView;
-    
+//    [self setBackgroundColor:[UIColor orangeColor]];
     PlayOtherControlView *playOtherControlView = [[PlayOtherControlView alloc]init];
     self.playOtherControlView = playOtherControlView;
-    
-    [self addSubview:playMainControlView];
+
     [self addSubview:playOtherControlView];
 }
 
@@ -46,15 +42,11 @@
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    self.playMainControlView.width = ScreenWidth;
-    self.playMainControlView.height = 80;
-    self.playMainControlView.x = 0;
-    self.playMainControlView.y = self.height - self.playMainControlView.height;
 
-    self.playOtherControlView.height = 70;
+    self.playOtherControlView.height = 40;
     self.playOtherControlView.width = ScreenWidth;
     self.playOtherControlView.x = 0;
-    self.playOtherControlView.y = self.playMainControlView.y - self.playOtherControlView.height;
+    self.playOtherControlView.y = self.height - self.playOtherControlView.height;
 }
 
 

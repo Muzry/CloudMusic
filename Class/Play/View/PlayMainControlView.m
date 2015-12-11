@@ -18,6 +18,9 @@
 @property (nonatomic,strong) UIButton *nextBtn;
 @property (nonatomic,strong) UIButton *playTypeBtn;
 @property (nonatomic,strong) UIButton *musicListBtn;
+@property (nonatomic,strong) UISlider *slider;
+@property (nonatomic,strong) UILabel *totalTime;
+@property (nonatomic,strong) UILabel *currentTime;
 
 @end
 
@@ -25,12 +28,12 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
-self = [super initWithFrame:frame];
-if (self)
-{
-    [self setup];
-}
-return self;
+    self = [super initWithFrame:frame];
+    if (self)
+    {
+        [self setup];
+    }
+    return self;
 }
 
 -(void)setup
@@ -61,18 +64,37 @@ return self;
     [musicListBtn setBackgroundImage:[UIImage imageNamed:@"cm2_icn_list"] forState:UIControlStateNormal];
     [musicListBtn setBackgroundImage:[UIImage imageNamed:@"cm2_icn_list_prs"] forState:UIControlStateHighlighted];
     
+    UILabel *currentTime = [[UILabel alloc]init];
+    currentTime.text = @"00:00";
+    currentTime.textColor = [UIColor whiteColor];
+    currentTime.alpha = 0.8;
+    currentTime.font = [UIFont systemFontOfSize:11];
+    
+    UILabel *totalTime = [[UILabel alloc]init];
+    totalTime.text = @"04:05";
+    totalTime.textColor = [UIColor whiteColor];
+    totalTime.font = [UIFont systemFontOfSize:11];
+    totalTime.alpha = 0.4;
+    
+    UISlider *slider = [[UISlider alloc]init];
+    
     self.prevBtn = prevBtn;
     self.playAndPauseBtn = playAndPauseBtn;
     self.nextBtn = nextBtn;
     self.playTypeBtn = playTypeBtn;
     self.musicListBtn = musicListBtn;
-    
+    self.currentTime = currentTime;
+    self.totalTime = totalTime;
+    self.slider = slider;
     
     [self addSubview:prevBtn];
     [self addSubview:playAndPauseBtn];
     [self addSubview:nextBtn];
     [self addSubview:playTypeBtn];
     [self addSubview:musicListBtn];
+    [self addSubview:currentTime];
+    [self addSubview:totalTime];
+    [self addSubview:slider];
     
 }
 
@@ -99,6 +121,21 @@ return self;
     self.musicListBtn.size = self.musicListBtn.currentBackgroundImage.size;
     self.musicListBtn.x = ScreenWidth - self.musicListBtn.width - 10;
     self.musicListBtn.y = (self.height - self.musicListBtn.height) / 2;
+    
+    self.currentTime.width = 32;
+    self.currentTime.height = 8;
+    self.currentTime.x = 10;
+    self.currentTime.y = 0;
+    
+    self.totalTime.width = 32;
+    self.totalTime.height = 8;
+    self.totalTime.x = ScreenWidth - self.totalTime.width - 10;
+    self.totalTime.y = self.currentTime.y;
+    
+    self.slider.width = ScreenWidth - 2 * (self.currentTime.x + self.currentTime.width + 5);
+    self.slider.height = 0;
+    self.slider.x = self.currentTime.x + self.currentTime.width + 2;
+    self.slider.y = self.totalTime.y + 4;
     
 }
 
