@@ -16,7 +16,7 @@
 
 @property (nonatomic,strong) UIButton* leftBtn;
 @property (nonatomic,strong) UIButton* rightBtn;
-@property (nonatomic,strong) UIImageView* crossView;
+
 
 @end
 
@@ -58,18 +58,13 @@
     singer.textColor = title.textColor = [UIColor whiteColor];
     singer.font = [UIFont systemFontOfSize:12];
     self.singer = singer;
-    
-    
-    // 下端阴影
-    UIImageView *crossView = [[UIImageView alloc]init];
-    [crossView setImage:[UIImage imageNamed:@"cm2_play_crossline"]];
-    self.crossView = crossView;
+
     
     [self addSubview:leftBtn];
     [self addSubview:rightBtn];
     [self addSubview:title];
     [self addSubview:singer];
-    [self addSubview:crossView];
+
 }
 
 -(void)back
@@ -105,13 +100,7 @@
     self.singer.x = (ScreenWidth - self.singer.width) / 2;
     self.singer.height = 8;
     self.singer.y =  self.title.y + self.title.height + 10;
-    
 
-    
-    self.crossView.x = 0;
-    self.crossView.height = self.crossView.image.size.height;
-    self.crossView.width = ScreenWidth;
-    self.crossView.y = self.height - self.crossView.height;
 }
 
 @end

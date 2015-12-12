@@ -66,15 +66,14 @@
 {
     [super layoutSubviews];
     
-    CGFloat btnX = 55;
+    CGFloat btnX = 40;
     CGFloat btnY = 0;
-    CGFloat margin = 80;
-    
+    CGFloat margin = (ScreenWidth - 2 * btnX) / 4;
     for (int i = 0; i < 4 ; i++)
     {
         UIButton *btn = self.subviews[i];
         btn.size = btn.currentBackgroundImage.size;
-        btn.x = btnX + i * margin;
+        btn.x = btnX + i * margin + (margin - btn.size.width) / 2;
         btn.y = btnY;
     }
     

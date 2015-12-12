@@ -87,10 +87,10 @@
     self.totalTime = totalTime;
     self.slider = slider;
     
+    [self addSubview:playTypeBtn];
     [self addSubview:prevBtn];
     [self addSubview:playAndPauseBtn];
     [self addSubview:nextBtn];
-    [self addSubview:playTypeBtn];
     [self addSubview:musicListBtn];
     [self addSubview:currentTime];
     [self addSubview:totalTime];
@@ -102,25 +102,15 @@
 {
     [super layoutSubviews];
     
-    self.playAndPauseBtn.size = self.playAndPauseBtn.currentBackgroundImage.size;
-    self.playAndPauseBtn.x = (ScreenWidth - self.playAndPauseBtn.width) / 2;
-    self.playAndPauseBtn.y = (self.height - self.playAndPauseBtn.height) / 2;
     
-    self.prevBtn.size = self.prevBtn.currentBackgroundImage.size;
-    self.prevBtn.x =  self.playAndPauseBtn.x - 20 - self.prevBtn.width;
-    self.prevBtn.y = (self.height - self.prevBtn.height) / 2;
-    
-    self.nextBtn.size = self.nextBtn.currentBackgroundImage.size;
-    self.nextBtn.x =  self.playAndPauseBtn.x + self.playAndPauseBtn.width + 20;
-    self.nextBtn.y = (self.height - self.nextBtn.height) / 2;
-    
-    self.playTypeBtn.size = self.playTypeBtn.currentBackgroundImage.size;
-    self.playTypeBtn.x = 10;
-    self.playTypeBtn.y = (self.height - self.playTypeBtn.height) / 2;
-    
-    self.musicListBtn.size = self.musicListBtn.currentBackgroundImage.size;
-    self.musicListBtn.x = ScreenWidth - self.musicListBtn.width - 10;
-    self.musicListBtn.y = (self.height - self.musicListBtn.height) / 2;
+    CGFloat margin = (ScreenWidth) / 5;
+    for (int i = 0; i < 5 ; i++)
+    {
+        UIButton *btn = self.subviews[i];
+        btn.size = btn.currentBackgroundImage.size;
+        btn.x = i * margin + (margin - btn.size.width) / 2;
+        btn.y = (self.height - btn.height) / 2;
+    }
     
     self.currentTime.width = 32;
     self.currentTime.height = 8;
@@ -134,7 +124,7 @@
     
     self.slider.width = ScreenWidth - 2 * (self.currentTime.x + self.currentTime.width + 5);
     self.slider.height = 0;
-    self.slider.x = self.currentTime.x + self.currentTime.width + 2;
+    self.slider.x = self.currentTime.x + self.currentTime.width + 3;
     self.slider.y = self.totalTime.y + 4;
     
 }

@@ -40,7 +40,21 @@
     [self setBackgroundColor:[UIColor whiteColor]];
 
     
-    UIImageView *maskView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"cm2_play_disc_mask-ip6"]];
+    UIImageView *maskView = [[UIImageView alloc]init];
+    
+    if (IS_IPHONE_6)
+    {
+        [maskView setImage:[UIImage imageNamed:@"cm2_play_disc_mask-ip6"]];
+    }
+    else if (IS_IPHONE_5)
+    {
+        [maskView setImage:[UIImage imageNamed:@"cm2_play_disc_mask-ip5"]];
+    }
+    else
+    {
+        [maskView setImage:[UIImage imageNamed:@"cm2_play_disc_mask"]];
+    }
+    
     self.maskView = maskView;
     
     //模糊效果的背景
@@ -79,9 +93,9 @@
     self.playMainControlView.y = self.height - self.playMainControlView.height;
     
     self.playControlView.x = 0;
-    self.playControlView.y = self.playTabBar.height + 10;
+    self.playControlView.y = 64;
     self.playControlView.width = ScreenWidth;
-    self.playControlView.height = ScreenHeight - self.playMainControlView.height - self.playTabBar.height - 10 - 30;
+    self.playControlView.height = ScreenHeight - self.playMainControlView.height - self.playTabBar.height;
 
 }
 
