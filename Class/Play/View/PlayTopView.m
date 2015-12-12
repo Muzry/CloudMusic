@@ -12,7 +12,6 @@
 @interface PlayTopView()
 
 @property (nonatomic,strong) UIImageView * playNeedle;
-
 @end
 
 @implementation PlayTopView
@@ -30,6 +29,8 @@
 -(void)setup
 {
     UIImageView *playNeedle = [[UIImageView alloc]init];
+    self.userInteractionEnabled = YES;
+    
     if(IS_IPHONE_6)
     {
         [playNeedle setImage:[UIImage imageNamed:@"cm2_play_needle_play-ip6"]];
@@ -43,13 +44,24 @@
         [playNeedle setImage:[UIImage imageNamed:@"cm2_play_needle_play"]];
     }
     
+    playNeedle.contentMode = UIViewContentModeScaleAspectFit;
+    
     self.playNeedle = playNeedle;
     [self addSubview:playNeedle];
+    
+    self.clipsToBounds = YES;
 }
+
+
+
 
 -(void)layoutSubviews
 {
     [super layoutSubviews];
+    
+    self.playNeedle.size = self.playNeedle.image.size;
+    self.playNeedle.x = 0;
+    self.playNeedle.y = -30;
 }
 
 @end

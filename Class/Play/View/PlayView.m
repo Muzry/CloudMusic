@@ -73,10 +73,9 @@
     
     [self addSubview:backgroundView];
     [self addSubview:maskView];
-    [self addSubview:playTabBar];
-    [self addSubview:playMainControlView];
     [self addSubview:playControlView];
-
+    [self addSubview:playMainControlView];
+    [self insertSubview:playTabBar aboveSubview:playControlView];
 }
 
 -(void)layoutSubviews

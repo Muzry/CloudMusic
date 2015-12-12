@@ -10,6 +10,7 @@
 #import "PlayControlView.h"
 #import "PlayOtherControlView.h"
 #import "CloudMusic.pch"
+#import "PlaySlider.h"
 
 @interface PlayMainControlView()
 
@@ -18,7 +19,7 @@
 @property (nonatomic,strong) UIButton *nextBtn;
 @property (nonatomic,strong) UIButton *playTypeBtn;
 @property (nonatomic,strong) UIButton *musicListBtn;
-@property (nonatomic,strong) UISlider *slider;
+@property (nonatomic,strong) PlaySlider *slider;
 @property (nonatomic,strong) UILabel *totalTime;
 @property (nonatomic,strong) UILabel *currentTime;
 
@@ -76,7 +77,7 @@
     totalTime.font = [UIFont systemFontOfSize:11];
     totalTime.alpha = 0.4;
     
-    UISlider *slider = [[UISlider alloc]init];
+    PlaySlider *slider = [[PlaySlider alloc]init];
     
     self.prevBtn = prevBtn;
     self.playAndPauseBtn = playAndPauseBtn;
@@ -123,7 +124,7 @@
     self.totalTime.y = self.currentTime.y;
     
     self.slider.width = ScreenWidth - 2 * (self.currentTime.x + self.currentTime.width + 5);
-    self.slider.height = 0;
+    self.slider.height = 2;
     self.slider.x = self.currentTime.x + self.currentTime.width + 3;
     self.slider.y = self.totalTime.y + 4;
     

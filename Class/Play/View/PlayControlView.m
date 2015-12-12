@@ -10,6 +10,7 @@
 #import "PlayControlView.h"
 #import "PlayOtherControlView.h"
 #import "PlayScrollView.h"
+#import "PlayTopView.h"
 #import "CloudMusic.pch"
 
 @interface PlayControlView()
@@ -17,6 +18,7 @@
 @property (nonatomic,strong) PlayOtherControlView *playOtherControlView;
 @property (nonatomic,strong) UIImageView* crossView;
 @property (nonatomic,strong) PlayScrollView *playScrollView;
+@property (nonatomic,strong) PlayTopView *playTopView;
 
 @end
 
@@ -46,11 +48,14 @@
     
     PlayScrollView *playScrollView = [[PlayScrollView alloc]init];
     self.playScrollView = playScrollView;
+    
+    PlayTopView *playTopView = [[PlayTopView alloc]init];
+    self.playTopView = playTopView;
 
     [self addSubview:playOtherControlView];
-    [self addSubview:crossView];
     [self addSubview:playScrollView];
-
+    [self addSubview:playTopView];
+    [self addSubview:crossView];
 }
 
 
@@ -71,6 +76,11 @@
     self.playScrollView.y = 20;
     self.playScrollView.width = ScreenWidth;
     self.playScrollView.height = self.height - self.playOtherControlView.height - self.playScrollView.y - 20;
+    
+    self.playTopView.x = ScreenWidth / 2 - 30;
+    self.playTopView.y = 0;
+    self.playTopView.width = ScreenWidth;
+    self.playTopView.height = 200;
 }
 
 
