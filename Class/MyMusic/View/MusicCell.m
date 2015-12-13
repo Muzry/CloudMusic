@@ -53,6 +53,8 @@
     {
         UIButton *moreInfoBtn = [[UIButton alloc]init];
         [moreInfoBtn setNormalName:@"cm2_list_btn_more" highlightName:@"cm2_list_btn_more_prs"];
+        [moreInfoBtn addTarget:self action:@selector(moreInfoBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        
         
         UILabel *numOfList = [[UILabel alloc]init];
         
@@ -71,6 +73,11 @@
     return self;
 }
 
+-(void)moreInfoBtnClick
+{
+    NSLog(@"点我点我");
+}
+
 -(void)layoutSubviews
 {
     [super layoutSubviews];
@@ -80,7 +87,7 @@
     self.numOfList.x = 10;
     self.numOfList.y = (self.height - self.numOfList.height) / 2;
     
-    self.moreInfoBtn.size = self.moreInfoBtn.currentImage.size;
+    self.moreInfoBtn.size = self.moreInfoBtn.currentBackgroundImage.size;
     self.moreInfoBtn.y = self.numOfList.y;
     self.moreInfoBtn.x = ScreenWidth - self.moreInfoBtn.width - 10;
     
