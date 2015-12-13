@@ -13,13 +13,15 @@
 #import "CloudMusic.pch"
 #import "UIImage+ImageEffects.h"
 
+
 @interface PlayView()
 
-@property (nonatomic,strong) PlayTabBar * playTabBar;
-@property (nonatomic,strong) UIImageView * maskView;
-@property (nonatomic,strong) UIImageView * backgroundView;
-@property (nonatomic,strong) PlayControlView *playControlView;
-@property (nonatomic,strong) PlayMainControlView *playMainControlView;
+@property (nonatomic,weak) PlayTabBar * playTabBar;
+@property (nonatomic,weak) UIImageView * maskView;
+@property (nonatomic,weak) UIImageView * backgroundView;
+@property (nonatomic,weak) PlayControlView *playControlView;
+@property (nonatomic,weak) PlayMainControlView *playMainControlView;
+
 
 @end
 
@@ -33,6 +35,14 @@
         [self setup];
     }
     return self;
+}
+
+-(void)setMusic:(MusicModel *)music
+{
+    self.playTabBar.singerName = music.singer;
+    self.playTabBar.songName = music.songName;
+    [self.backgroundView setImage:[[UIImage imageNamed:music.ablumImage] applyBlurWithRadius:60 tintColor:[UIColor clearColor] saturationDeltaFactor:1.0 maskImage:nil]];
+    self.playControlView.albumImageName = music.ablumImage;
 }
 
 -(void)setup
@@ -60,6 +70,7 @@
     //模糊效果的背景
     UIImageView *backgroundView = [[UIImageView alloc] init];
     [backgroundView setImage:[[UIImage imageNamed:@"bg"] applyBlurWithRadius:60 tintColor:[UIColor clearColor] saturationDeltaFactor:1.0 maskImage:nil]];
+    
     self.backgroundView = backgroundView;
     
     PlayTabBar *playTabBar = [[PlayTabBar alloc]init];

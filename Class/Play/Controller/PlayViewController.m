@@ -24,6 +24,7 @@
     
     PlayView *playView = [[PlayView alloc]init];
     playView.frame = self.view.frame;
+    playView.music = self.music;
     self.view = playView;
 }
 

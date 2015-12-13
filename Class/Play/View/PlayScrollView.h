@@ -10,4 +10,6 @@
 
 @interface PlayScrollView : UIScrollView
 
+@property (nonatomic,copy) NSString *ablumImageName;
+
 @end

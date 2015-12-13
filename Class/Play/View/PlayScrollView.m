@@ -12,7 +12,7 @@
 
 @interface PlayScrollView()
 
-@property (nonatomic,strong) PlayDiscView * playDiscView;
+@property (nonatomic,weak) PlayDiscView * playDiscView;
 
 @end
 
@@ -26,6 +26,11 @@
         [self setup];
     }
     return self;
+}
+
+-(void)setAblumImageName:(NSString *)ablumImageName
+{
+    self.playDiscView.ablumImageName = ablumImageName;
 }
 
 

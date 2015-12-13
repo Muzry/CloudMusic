@@ -10,7 +10,7 @@
 
 @interface PlayTabBar : UIView
 
-@property (nonatomic,strong) UILabel *title;
-@property (nonatomic,strong) UILabel *singer;
+@property (nonatomic,copy) NSString *songName;
+@property (nonatomic,copy) NSString *singerName;
 
 @end

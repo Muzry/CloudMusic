@@ -14,14 +14,14 @@
 
 @interface PlayMainControlView()
 
-@property (nonatomic,strong) UIButton *prevBtn;
-@property (nonatomic,strong) UIButton *playAndPauseBtn;
-@property (nonatomic,strong) UIButton *nextBtn;
-@property (nonatomic,strong) UIButton *playTypeBtn;
-@property (nonatomic,strong) UIButton *musicListBtn;
-@property (nonatomic,strong) PlaySlider *slider;
-@property (nonatomic,strong) UILabel *totalTime;
-@property (nonatomic,strong) UILabel *currentTime;
+@property (nonatomic,weak) UIButton *prevBtn;
+@property (nonatomic,weak) UIButton *playAndPauseBtn;
+@property (nonatomic,weak) UIButton *nextBtn;
+@property (nonatomic,weak) UIButton *playTypeBtn;
+@property (nonatomic,weak) UIButton *musicListBtn;
+@property (nonatomic,weak) PlaySlider *slider;
+@property (nonatomic,weak) UILabel *totalTime;
+@property (nonatomic,weak) UILabel *currentTime;
 @property (nonatomic,assign,getter=isPlaying) BOOL playing;//播放状态
 @property (nonatomic,assign) playType playingType;
 

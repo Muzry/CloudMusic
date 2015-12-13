@@ -13,9 +13,10 @@
 
 @interface PlayTabBar()
 
-
-@property (nonatomic,strong) UIButton* leftBtn;
-@property (nonatomic,strong) UIButton* rightBtn;
+@property (nonatomic,weak) UILabel *title;
+@property (nonatomic,weak) UILabel *singer;
+@property (nonatomic,weak) UIButton* leftBtn;
+@property (nonatomic,weak) UIButton* rightBtn;
 
 
 @end
@@ -30,6 +31,16 @@
         [self setup];
     }
     return self;
+}
+
+-(void)setSongName:(NSString *)songName
+{
+    self.title.text = songName;
+}
+
+-(void)setSingerName:(NSString *)singerName
+{
+    self.singer.text = singerName;
 }
 
 -(void)setup

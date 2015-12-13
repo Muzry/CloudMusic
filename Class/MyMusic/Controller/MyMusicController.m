@@ -10,6 +10,7 @@
 #import "PlayViewController.h"
 #import "CloudMusic.pch"
 #import "MusicModel.h"
+#import "MusicCell.h"
 
 @interface MyMusicController()
 
@@ -24,7 +25,8 @@
 {
     if (!_musicList)
     {
-        _musicList = [MusicModel objectArrayWithFile:@"songs.plist"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"songs" ofType:@"plist"];
+        _musicList = [MusicModel objectArrayWithFile:path];
     }
     return _musicList;
 }
@@ -33,6 +35,7 @@
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -42,15 +45,17 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell * cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MusicCell"];
-    cell.textLabel.text = @"测试歌曲";
+    MusicCell * cell = [MusicCell musicCellWithTableView:tableView];
+    cell.music = self.musicList[indexPath.row];
+    cell.num = [NSString stringWithFormat:@"%ld",indexPath.row + 1];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    MusicModel *music = self.musicList[indexPath.row];
     PlayViewController *playerVc = [[PlayViewController alloc]init];
-    playerVc.title = @"测试歌曲";
+    playerVc.music = music;
     [self.navigationController pushViewController:playerVc animated:YES];
 }
 

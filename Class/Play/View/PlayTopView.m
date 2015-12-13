@@ -11,7 +11,7 @@
 
 @interface PlayTopView()
 
-@property (nonatomic,strong) UIImageView * playNeedle;
+@property (nonatomic,weak) UIImageView * playNeedle;
 @end
 
 @implementation PlayTopView

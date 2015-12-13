@@ -15,10 +15,10 @@
 
 @interface PlayControlView()
 
-@property (nonatomic,strong) PlayOtherControlView *playOtherControlView;
-@property (nonatomic,strong) UIImageView* crossView;
-@property (nonatomic,strong) PlayScrollView *playScrollView;
-@property (nonatomic,strong) PlayTopView *playTopView;
+@property (nonatomic,weak) PlayOtherControlView *playOtherControlView;
+@property (nonatomic,weak) UIImageView* crossView;
+@property (nonatomic,weak) PlayScrollView *playScrollView;
+@property (nonatomic,weak) PlayTopView *playTopView;
 
 @end
 
@@ -32,6 +32,11 @@
         [self setup];
     }
     return self;
+}
+
+-(void)setAlbumImageName:(NSString *)albumImageName
+{
+    self.playScrollView.ablumImageName = albumImageName;
 }
 
 -(void)setup

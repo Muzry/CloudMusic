@@ -11,7 +11,7 @@
 
 @interface PlayDiscView()
 
-@property (nonatomic,strong) UIImageView * bgView;
+@property (nonatomic,weak) UIImageView * bgView;
 
 @end
 
@@ -25,6 +25,11 @@
         [self setup];
     }
     return self;
+}
+
+-(void)setAblumImageName:(NSString *)ablumImageName
+{
+    [self.bgView setImage:[UIImage imageNamed:ablumImageName]];
 }
 
 -(void)setup

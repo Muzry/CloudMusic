@@ -10,4 +10,6 @@
 
 @interface PlayControlView : UIView
 
+@property (nonatomic,copy) NSString *albumImageName;
+
 @end

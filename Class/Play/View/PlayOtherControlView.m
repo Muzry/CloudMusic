@@ -11,10 +11,10 @@
 
 @interface PlayOtherControlView()
 
-@property (nonatomic,strong) UIButton *loveBtn;
-@property (nonatomic,strong) UIButton *downloadBtn;
-@property (nonatomic,strong) UIButton *commentBtn;
-@property (nonatomic,strong) UIButton *moreBtn;
+@property (nonatomic,weak) UIButton *loveBtn;
+@property (nonatomic,weak) UIButton *downloadBtn;
+@property (nonatomic,weak) UIButton *commentBtn;
+@property (nonatomic,weak) UIButton *moreBtn;
 @property (nonatomic,assign,getter=isLoving) BOOL loving;
 
 @end

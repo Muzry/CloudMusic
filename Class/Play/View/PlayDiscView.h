@@ -10,4 +10,6 @@
 
 @interface PlayDiscView : UIImageView
 
+@property (nonatomic,copy) NSString *ablumImageName;
+
 @end
