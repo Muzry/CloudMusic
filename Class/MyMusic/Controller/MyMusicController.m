@@ -9,9 +9,25 @@
 #import "MyMusicController.h"
 #import "PlayViewController.h"
 #import "CloudMusic.pch"
+#import "MusicModel.h"
+
+@interface MyMusicController()
+
+@property (nonatomic,strong) NSArray *musicList;
+
+@end
 
 
 @implementation MyMusicController
+
+-(NSArray *)musicList
+{
+    if (!_musicList)
+    {
+        _musicList = [MusicModel objectArrayWithFile:@"songs.plist"];
+    }
+    return _musicList;
+}
 
 -(void)viewDidLoad
 {
@@ -19,14 +35,9 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return self.musicList.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

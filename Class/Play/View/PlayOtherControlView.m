@@ -15,6 +15,7 @@
 @property (nonatomic,strong) UIButton *downloadBtn;
 @property (nonatomic,strong) UIButton *commentBtn;
 @property (nonatomic,strong) UIButton *moreBtn;
+@property (nonatomic,assign,getter=isLoving) BOOL loving;
 
 @end
 
@@ -34,21 +35,21 @@
 {
     
     UIButton *loveBtn = [[UIButton alloc]init];
-    [loveBtn setBackgroundImage:[UIImage imageNamed:@"cm2_play_icn_love"] forState:UIControlStateNormal];
-    [loveBtn setBackgroundImage:[UIImage imageNamed:@"cm2_play_icn_love_prs"] forState:UIControlStateHighlighted];
+    [loveBtn setNormalName:@"cm2_play_icn_love" highlightName:@"cm2_play_icn_love_prs"];
+    
+    [loveBtn addTarget:self action:@selector(loveBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     
     UIButton *downloadBtn = [[UIButton alloc]init];
-    [downloadBtn setBackgroundImage:[UIImage imageNamed:@"cm2_play_icn_dld"] forState:UIControlStateNormal];
-    [downloadBtn setBackgroundImage:[UIImage imageNamed:@"cm2_play_icn_dld_prs"] forState:UIControlStateHighlighted];
+    [downloadBtn setNormalName:@"cm2_play_icn_dld" highlightName:@"cm2_play_icn_dld_prs"];
+    
     
     UIButton *commentBtn = [[UIButton alloc]init];
-    [commentBtn setBackgroundImage:[UIImage imageNamed:@"cm2_play_icn_cmt"] forState:UIControlStateNormal];
-    [commentBtn setBackgroundImage:[UIImage imageNamed:@"cm2_play_icn_cmt_prs"] forState:UIControlStateHighlighted];
+    [commentBtn setNormalName:@"cm2_play_icn_cmt" highlightName:@"cm2_play_icn_cmt_prs"];
     
     UIButton *moreBtn = [[UIButton alloc]init];
-    [moreBtn setBackgroundImage:[UIImage imageNamed:@"cm2_play_icn_more"] forState:UIControlStateNormal];
-    [moreBtn setBackgroundImage:[UIImage imageNamed:@"cm2_play_icn_more_prs"] forState:UIControlStateHighlighted];
+    
+    [moreBtn setNormalName:@"cm2_play_icn_more" highlightName:@"cm2_play_icn_more_prs"];
     
     self.loveBtn = loveBtn;
     self.downloadBtn = downloadBtn;
@@ -60,6 +61,20 @@
     [self addSubview:commentBtn];
     [self addSubview:moreBtn];
     
+}
+
+-(void)loveBtnClick
+{
+    self.loving = !self.isLoving;
+    
+    if (!self.loving)
+    {
+        [self.loveBtn setNormalName:@"cm2_play_icn_love" highlightName:@"cm2_play_icn_love_prs"];
+    }
+    else
+    {
+        [self.loveBtn setNormalName:@"cm2_play_icn_loved" highlightName:@"cm2_play_icn_loved_prs"];
+    }
 }
 
 -(void)layoutSubviews
@@ -76,7 +91,6 @@
         btn.x = btnX + i * margin + (margin - btn.size.width) / 2;
         btn.y = btnY;
     }
-    
 }
 
 @end

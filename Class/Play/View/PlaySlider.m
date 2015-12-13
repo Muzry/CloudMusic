@@ -8,6 +8,7 @@
 
 #import "PlaySlider.h"
 #import "UIImage+ResizeImage.h"
+#import "CloudMusic.pch"
 
 @implementation PlaySlider
 
@@ -23,10 +24,9 @@
 
 -(void)setup
 {
-    [self setThumbImage:[UIImage imageNamed:@"cm2_playbar_btn"] forState:UIControlStateNormal];
-    [self setThumbImage:[UIImage imageNamed:@"cm2_playbar_btn"] forState:UIControlStateHighlighted];
-    [self setMaximumTrackImage:[UIImage resizeImageWihtImageName:@"cm2_playbar_ready"] forState:UIControlStateNormal];
-    [self setMinimumTrackImage:[UIImage resizeImageWihtImageName:@"cm2_playbar_curr"] forState:UIControlStateNormal];
+    [self setThumbImage:[UIImage imageNamed:@"cm2_fm_playbar_btn"] forState:UIControlStateNormal];
+    [self setMaximumTrackImage:[UIImage resizeImageWihtImageName:@"cm2_fm_playbar_ready"] forState:UIControlStateNormal];
+    [self setMinimumTrackImage:[UIImage resizeImageWihtImageName:@"cm2_fm_playbar_curr"] forState:UIControlStateNormal];
 }
 
 @end

@@ -12,6 +12,9 @@
 #import "PlayView.h"
 
 @interface PlayViewController ()
+
+@property (nonatomic,weak) PlayView *playView;
+
 @end
 
 @implementation PlayViewController

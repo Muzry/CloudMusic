@@ -46,7 +46,12 @@
     
     playNeedle.contentMode = UIViewContentModeScaleAspectFit;
     
+    
+    
     self.playNeedle = playNeedle;
+    
+    
+    
     [self addSubview:playNeedle];
     
     self.clipsToBounds = YES;

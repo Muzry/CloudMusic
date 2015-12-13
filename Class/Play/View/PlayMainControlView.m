@@ -22,6 +22,9 @@
 @property (nonatomic,strong) PlaySlider *slider;
 @property (nonatomic,strong) UILabel *totalTime;
 @property (nonatomic,strong) UILabel *currentTime;
+@property (nonatomic,assign,getter=isPlaying) BOOL playing;//播放状态
+@property (nonatomic,assign) playType playingType;
+
 
 @end
 
@@ -42,28 +45,25 @@
     
     UIButton *prevBtn = [[UIButton alloc]init];
     
-    [prevBtn setBackgroundImage:[UIImage imageNamed:@"cm2_play_btn_prev"] forState:UIControlStateNormal];
-    [prevBtn setBackgroundImage:[UIImage imageNamed:@"cm2_play_btn_prev_prs"] forState:UIControlStateHighlighted];
+    [prevBtn setNormalName:@"cm2_play_btn_prev" highlightName:@"cm2_play_btn_prev_prs"];
     
     UIButton *playAndPauseBtn = [[UIButton alloc]init];
     
-    [playAndPauseBtn setBackgroundImage:[UIImage imageNamed:@"cm2_fm_btn_play"] forState:UIControlStateNormal];
-    [playAndPauseBtn setBackgroundImage:[UIImage imageNamed:@"cm2_fm_btn_play_prs"] forState:UIControlStateHighlighted];
+    [playAndPauseBtn setNormalName:@"cm2_fm_btn_pause" highlightName:@"cm2_fm_btn_pause_prs"];
+    [playAndPauseBtn addTarget:self action:@selector(playBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    self.playing = YES;
     
     UIButton *nextBtn = [[UIButton alloc]init];
-    
-    [nextBtn setBackgroundImage:[UIImage imageNamed:@"cm2_fm_btn_next"] forState:UIControlStateNormal];
-    [nextBtn setBackgroundImage:[UIImage imageNamed:@"cm2_fm_btn_next_prs"] forState:UIControlStateHighlighted];
+    [nextBtn setNormalName:@"cm2_fm_btn_next" highlightName:@"cm2_fm_btn_next_prs"];
     
     UIButton *playTypeBtn = [[UIButton alloc]init];
     
-    [playTypeBtn setBackgroundImage:[UIImage imageNamed:@"cm2_icn_loop"] forState:UIControlStateNormal];
-    [playTypeBtn setBackgroundImage:[UIImage imageNamed:@"cm2_icn_loop_prs"] forState:UIControlStateHighlighted];
+    [playTypeBtn setNormalName:@"cm2_icn_loop" highlightName:@"cm2_icn_loop_prs"];
+    [playTypeBtn addTarget:self action:@selector(typeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *musicListBtn = [[UIButton alloc]init];
     
-    [musicListBtn setBackgroundImage:[UIImage imageNamed:@"cm2_icn_list"] forState:UIControlStateNormal];
-    [musicListBtn setBackgroundImage:[UIImage imageNamed:@"cm2_icn_list_prs"] forState:UIControlStateHighlighted];
+    [musicListBtn setNormalName:@"cm2_icn_list" highlightName:@"cm2_icn_list_prs"];
     
     UILabel *currentTime = [[UILabel alloc]init];
     currentTime.text = @"00:00";
@@ -87,6 +87,7 @@
     self.currentTime = currentTime;
     self.totalTime = totalTime;
     self.slider = slider;
+    self.playingType = playTypeLoop;
     
     [self addSubview:playTypeBtn];
     [self addSubview:prevBtn];
@@ -96,6 +97,40 @@
     [self addSubview:currentTime];
     [self addSubview:totalTime];
     [self addSubview:slider];
+    
+}
+
+-(void)playBtnClick
+{
+    self.playing = !self.isPlaying;
+    if (!self.isPlaying)
+    {
+        [self.playAndPauseBtn setNormalName:@"cm2_fm_btn_play" highlightName:@"cm2_fm_btn_play_prs"];
+    }
+    else
+    {
+        [self.playAndPauseBtn setNormalName:@"cm2_fm_btn_pause" highlightName:@"cm2_fm_btn_pause_prs"];
+    }
+}
+
+-(void)typeBtnClick
+{
+    if (self.playingType == playTypeLoop)
+    {
+        [self.playTypeBtn setNormalName:@"cm2_icn_one" highlightName:@"cm2_icn_one_prs"];
+        self.playingType = playTypeOne;
+    }
+    else if (self.playingType == playTypeOne)
+    {
+        
+        [self.playTypeBtn setNormalName:@"cm2_icn_shuffle" highlightName:@"cm2_icn_shuffle_prs"];
+        self.playingType = playTypeShuffle;
+    }
+    else
+    {
+        [self.playTypeBtn setNormalName:@"cm2_icn_loop" highlightName:@"cm2_icn_loop_prs"];
+        self.playingType = playTypeLoop;
+    }
     
 }
 
@@ -116,17 +151,17 @@
     self.currentTime.width = 32;
     self.currentTime.height = 8;
     self.currentTime.x = 10;
-    self.currentTime.y = 0;
+    self.currentTime.y = 10;
     
     self.totalTime.width = 32;
     self.totalTime.height = 8;
     self.totalTime.x = ScreenWidth - self.totalTime.width - 10;
     self.totalTime.y = self.currentTime.y;
     
-    self.slider.width = ScreenWidth - 2 * (self.currentTime.x + self.currentTime.width + 5);
-    self.slider.height = 2;
-    self.slider.x = self.currentTime.x + self.currentTime.width + 3;
-    self.slider.y = self.totalTime.y + 4;
+    self.slider.width = ScreenWidth - 2 * (self.currentTime.x + self.currentTime.width + 10);
+    self.slider.height = 10;
+    self.slider.x = self.currentTime.x + self.currentTime.width + 10;
+    self.slider.y = self.totalTime.y - 1;
     
 }
 
