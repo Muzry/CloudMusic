@@ -36,7 +36,8 @@
 
 -(void)setAlbumImageName:(NSString *)albumImageName
 {
-    self.playScrollView.ablumImageName = albumImageName;
+    self.playScrollView.albumImageName = albumImageName;
+    _albumImageName = albumImageName;
 }
 
 -(void)setup

@@ -25,9 +25,20 @@
 @property (nonatomic,assign) playType playingType;
 
 
+@property (nonatomic,strong) CADisplayLink *link;
+
 @end
 
 @implementation PlayMainControlView
+
+-(CADisplayLink *)link
+{
+    if (!_link)
+    {
+        _link = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateSlider)];
+    }
+    return _link;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -37,6 +48,14 @@
         [self setup];
     }
     return self;
+}
+
+-(void)setTotalTimeString:(NSString *)totalTimeString
+{
+    self.totalTime.text = totalTimeString;
+    _totalTimeString = totalTimeString;
+    self.slider.maximumValue = [MusicTool sharedMusicTool].player.duration;
+
 }
 
 -(void)setup
@@ -72,7 +91,6 @@
     currentTime.font = [UIFont systemFontOfSize:11];
     
     UILabel *totalTime = [[UILabel alloc]init];
-    totalTime.text = @"04:05";
     totalTime.textColor = [UIColor whiteColor];
     totalTime.font = [UIFont systemFontOfSize:11];
     totalTime.alpha = 0.4;
@@ -98,6 +116,8 @@
     [self addSubview:totalTime];
     [self addSubview:slider];
     
+    [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    
 }
 
 -(void)playBtnClick
@@ -113,7 +133,6 @@
         [self notifyDelegateWithBtnType:playBtnTypePlay];
     }
 }
-
 
 -(void)setPlaying:(BOOL)playing
 {
@@ -194,6 +213,23 @@
     if ([self.delegate respondsToSelector:@selector(playMainControl:withBtnType:)])
     {
         [self.delegate playMainControl:self withBtnType:playBtnType];
+    }
+}
+
+-(void)dealloc{
+    //移除定时器
+    [self.link removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
+
+-(void)updateSlider
+{
+    double currentTime = [MusicTool sharedMusicTool].player.currentTime;
+    self.slider.value = currentTime;
+    self.currentTime.text = [NSString getMinuteSecondFrom:currentTime];
+    if ([self.currentTime.text isEqualToString:self.totalTimeString])
+    {
+        [self nextBtnClick];
     }
 }
 

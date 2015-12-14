@@ -9,7 +9,7 @@
 		<string>Let It Go.mp3</string>
 		<key>singer</key>
 		<string>黛米·洛瓦托，伊迪娜·门泽尔</string>
-		<key>ablumImage</key>
+		<key>albumImage</key>
 		<string>song_400.png</string>
 	</dict>
 	<dict>
@@ -19,7 +19,7 @@
 		<string>小苹果.mp3</string>
 		<key>singer</key>
 		<string>筷子兄弟</string>
-		<key>ablumImage</key>
+		<key>albumImage</key>
 		<string>kzxd_400.png</string>
 	</dict>
 	<dict>
@@ -29,7 +29,7 @@
 		<string>愿得一人心(剧场版).mp3</string>
 		<key>singer</key>
 		<string>李行亮 雨宗林</string>
-		<key>ablumImage</key>
+		<key>albumImage</key>
 		<string>song_400.png</string>
 	</dict>
 	<dict>
@@ -39,7 +39,7 @@
 		<string>爱莫忘.mp3</string>
 		<key>singer</key>
 		<string>郑欣宜</string>
-		<key>ablumImage</key>
+		<key>albumImage</key>
 		<string>zxy_400.png</string>
 	</dict>
 	<dict>
@@ -49,7 +49,7 @@
 		<string>泡沫.mp3</string>
 		<key>singer</key>
 		<string>邓紫琪G.E.M</string>
-		<key>ablumImage</key>
+		<key>albumImage</key>
 		<string>gem_400.png</string>
 	</dict>
 	<dict>
@@ -59,7 +59,7 @@
 		<string>爸爸去哪儿.mp3</string>
 		<key>singer</key>
 		<string>爸爸去哪儿第一季</string>
-		<key>ablumImage</key>
+		<key>albumImage</key>
 		<string>bbqne_400.png</string>
 	</dict>
 	<dict>
@@ -69,7 +69,7 @@
 		<string>昨迟人.mp3</string>
 		<key>singer</key>
 		<string>爸爸去哪儿第一季</string>
-		<key>ablumImage</key>
+		<key>albumImage</key>
 		<string>bbqne_400.png</string>
 	</dict>
 </array>

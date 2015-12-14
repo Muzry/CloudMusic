@@ -36,11 +36,13 @@
 -(void)setSongName:(NSString *)songName
 {
     self.title.text = songName;
+    _songName = songName;
 }
 
 -(void)setSingerName:(NSString *)singerName
 {
     self.singer.text = singerName;
+    _singerName = singerName;
 }
 
 -(void)setup

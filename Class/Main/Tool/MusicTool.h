@@ -7,15 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Singleton.h"
 #import "MusicModel.h"
 #import "CloudMusic.pch"
+#import <AVFoundation/AVFoundation.h>
+#import "Singleton.h"
 
 @interface MusicTool : NSObject
 singleton_interface(MusicTool)
 
 @property (nonatomic,strong) NSArray *musicList;
 @property (nonatomic,assign) NSInteger playingIndex;
+@property (nonatomic,strong) AVAudioPlayer* player;
 
 /** 音乐播放前的准备工作*/
 -(void)prepareToPlayWithMusic:(MusicModel *)music;

@@ -44,11 +44,8 @@
 {
     MusicModel *music = [MusicTool sharedMusicTool].musicList[indexPath.row];
     PlayViewController *playerVc = [[PlayViewController alloc]init];
-    if ([MusicTool sharedMusicTool].musicList[indexPath.row] != music)
-    {
-        playerVc.music = music;
-        [MusicTool sharedMusicTool].playingIndex = indexPath.row;
-    }
+    playerVc.music = music;
+    [MusicTool sharedMusicTool].playingIndex = indexPath.row;
     [self.navigationController pushViewController:playerVc animated:YES];
 }
 

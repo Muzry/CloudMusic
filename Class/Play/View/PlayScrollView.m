@@ -28,9 +28,10 @@
     return self;
 }
 
--(void)setAblumImageName:(NSString *)ablumImageName
+-(void)setAlbumImageName:(NSString *)albumImageName
 {
-    self.playDiscView.ablumImageName = ablumImageName;
+    self.playDiscView.albumImageName = albumImageName;
+    _albumImageName = albumImageName;
 }
 
 

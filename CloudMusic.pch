@@ -15,7 +15,7 @@
 #import "UIButton+Extension.h"
 #import "MJExtension.h"
 #import "MusicTool.h"
-
+#import "NSString+Extension.h"
 
 typedef enum
 {

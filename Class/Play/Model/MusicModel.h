@@ -28,6 +28,6 @@
  *  专辑图片
  */
 
-@property (nonatomic,copy) NSString *ablumImage;
+@property (nonatomic,copy) NSString *albumImage;
 
 @end

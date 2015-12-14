@@ -39,11 +39,19 @@
 {
     self.playTabBar.singerName = music.singer;
     self.playTabBar.songName = music.songName;
-    [self.backgroundView setImage:[[UIImage imageNamed:music.ablumImage] applyBlurWithRadius:60 tintColor:[UIColor clearColor] saturationDeltaFactor:1.0 maskImage:nil]];
-    self.playControlView.albumImageName = music.ablumImage;
+    [self.backgroundView setImage:[[UIImage imageNamed:music.albumImage] applyBlurWithRadius:60 tintColor:[UIColor clearColor] saturationDeltaFactor:1.0 maskImage:nil]];
+    
+    self.playControlView.albumImageName = music.albumImage;
+    
     [[MusicTool sharedMusicTool] prepareToPlayWithMusic:music];
     [[MusicTool sharedMusicTool] playMusic];
+    
     self.playMainControlView.playing = YES;
+    
+    double duration = [MusicTool sharedMusicTool].player.duration;
+    self.playMainControlView.totalTimeString = [NSString getMinuteSecondFrom:duration];
+    
+    _music = music;
 }
 
 -(void)setup

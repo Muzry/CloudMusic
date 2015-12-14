@@ -27,9 +27,10 @@
     return self;
 }
 
--(void)setAblumImageName:(NSString *)ablumImageName
+-(void)setAlbumImageName:(NSString *)albumImageName
 {
-    [self.bgView setImage:[UIImage imageNamed:ablumImageName]];
+    [self.bgView setImage:[UIImage imageNamed:albumImageName]];
+    _albumImageName = albumImageName;
 }
 
 -(void)setup

@@ -10,6 +10,6 @@
 
 @interface PlayScrollView : UIScrollView
 
-@property (nonatomic,copy) NSString *ablumImageName;
+@property (nonatomic,copy) NSString *albumImageName;
 
 @end

@@ -7,14 +7,6 @@
 //
 
 #import "MusicTool.h"
-#import <AVFoundation/AVFoundation.h>
-
-@interface MusicTool()
-
-@property (nonatomic,strong) AVAudioPlayer* player;
-
-
-@end
 
 @implementation MusicTool
 

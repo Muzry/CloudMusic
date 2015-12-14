@@ -10,6 +10,6 @@
 
 @interface PlayDiscView : UIImageView
 
-@property (nonatomic,copy) NSString *ablumImageName;
+@property (nonatomic,copy) NSString *albumImageName;
 
 @end
