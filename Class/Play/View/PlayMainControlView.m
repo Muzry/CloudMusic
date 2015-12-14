@@ -85,7 +85,6 @@
     [musicListBtn setNormalName:@"cm2_icn_list" highlightName:@"cm2_icn_list_prs"];
     
     UILabel *currentTime = [[UILabel alloc]init];
-    currentTime.text = @"00:00";
     currentTime.textColor = [UIColor whiteColor];
     currentTime.alpha = 0.8;
     currentTime.font = [UIFont systemFontOfSize:11];
@@ -208,6 +207,7 @@
     
 }
 
+//按钮监听代理
 -(void)notifyDelegateWithBtnType:(playBtnType)playBtnType
 {
     if ([self.delegate respondsToSelector:@selector(playMainControl:withBtnType:)])
@@ -216,12 +216,13 @@
     }
 }
 
--(void)dealloc{
+-(void)dealloc
+{
     //移除定时器
     [self.link removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
-
+//进度条更新
 -(void)updateSlider
 {
     double currentTime = [MusicTool sharedMusicTool].player.currentTime;

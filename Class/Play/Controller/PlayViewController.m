@@ -26,7 +26,10 @@
     PlayView *playView = [[PlayView alloc]init];
     playView.frame = self.view.frame;
     playView.music = self.music;
-    self.view = playView;
+    playView.x = 0;
+    playView.y = 0;
+    playView.size = self.view.size;
+    [self.view addSubview:playView];
 }
 
 -(void)viewWillAppear:(BOOL)animated

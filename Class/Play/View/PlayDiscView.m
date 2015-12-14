@@ -45,9 +45,7 @@
     }
     
     UIImageView *bgView = [[UIImageView alloc]init];
-    bgView.contentMode = UIViewContentModeScaleAspectFill;
     bgView.clipsToBounds = YES;
-    [bgView setImage:[UIImage imageNamed:@"bg"]];
     
     [self addSubview:bgView];
     [self sendSubviewToBack:bgView];

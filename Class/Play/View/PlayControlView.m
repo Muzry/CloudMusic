@@ -20,6 +20,7 @@
 @property (nonatomic,weak) PlayScrollView *playScrollView;
 @property (nonatomic,weak) PlayTopView *playTopView;
 
+
 @end
 
 @implementation PlayControlView
@@ -42,7 +43,6 @@
 
 -(void)setup
 {
-//    [self setBackgroundColor:[UIColor orangeColor]];
     PlayOtherControlView *playOtherControlView = [[PlayOtherControlView alloc]init];
     self.playOtherControlView = playOtherControlView;
     
