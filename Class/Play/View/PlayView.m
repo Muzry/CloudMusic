@@ -10,18 +10,16 @@
 #import "PlayTabBar.h"
 #import "PlayControlView.h"
 #import "PlayMainControlView.h"
-#import "CloudMusic.pch"
 #import "UIImage+ImageEffects.h"
+#import "MusicTool.h"
 
-
-@interface PlayView()
+@interface PlayView()<PlayMainControlDelegate>
 
 @property (nonatomic,weak) PlayTabBar * playTabBar;
 @property (nonatomic,weak) UIImageView * maskView;
 @property (nonatomic,weak) UIImageView * backgroundView;
 @property (nonatomic,weak) PlayControlView *playControlView;
 @property (nonatomic,weak) PlayMainControlView *playMainControlView;
-
 
 @end
 
@@ -43,12 +41,14 @@
     self.playTabBar.songName = music.songName;
     [self.backgroundView setImage:[[UIImage imageNamed:music.ablumImage] applyBlurWithRadius:60 tintColor:[UIColor clearColor] saturationDeltaFactor:1.0 maskImage:nil]];
     self.playControlView.albumImageName = music.ablumImage;
+    [[MusicTool sharedMusicTool] prepareToPlayWithMusic:music];
+    [[MusicTool sharedMusicTool] playMusic];
+    self.playMainControlView.playing = YES;
 }
 
 -(void)setup
 {
     [self setBackgroundColor:[UIColor whiteColor]];
-
     
     UIImageView *maskView = [[UIImageView alloc]init];
     
@@ -69,8 +69,6 @@
     
     //模糊效果的背景
     UIImageView *backgroundView = [[UIImageView alloc] init];
-    [backgroundView setImage:[[UIImage imageNamed:@"bg"] applyBlurWithRadius:60 tintColor:[UIColor clearColor] saturationDeltaFactor:1.0 maskImage:nil]];
-    
     self.backgroundView = backgroundView;
     
     PlayTabBar *playTabBar = [[PlayTabBar alloc]init];
@@ -80,13 +78,14 @@
     self.playControlView = playControlView;
     
     PlayMainControlView* playMainControlView = [[PlayMainControlView alloc]init];
+    playMainControlView.delegate = self;
     self.playMainControlView = playMainControlView;
     
     [self addSubview:backgroundView];
     [self addSubview:maskView];
     [self addSubview:playControlView];
     [self addSubview:playMainControlView];
-    [self insertSubview:playTabBar aboveSubview:playControlView];
+    [self addSubview:playTabBar];
 }
 
 -(void)layoutSubviews
@@ -106,7 +105,53 @@
     self.playControlView.y = 64;
     self.playControlView.width = ScreenWidth;
     self.playControlView.height = ScreenHeight - self.playMainControlView.height - self.playTabBar.height;
+}
 
+-(void)playMainControl:(PlayMainControlView *)mainControlView withBtnType:(playBtnType)type
+{
+    switch (type)
+    {
+        case playBtnTypePlay:
+        {
+            [[MusicTool sharedMusicTool] playMusic];
+            break;
+        }
+        case playBtnTypePause:
+        {
+            [[MusicTool sharedMusicTool] pauseMusic];
+            break;
+        }
+        case playBtnTypePrev:
+        {
+            NSInteger index = [MusicTool sharedMusicTool].playingIndex - 1;
+            [self prepareToChangeMusic:index];
+            break;
+        }
+        case playBtnTypeNext:
+        {
+            NSInteger index = [MusicTool sharedMusicTool].playingIndex + 1;
+            [self prepareToChangeMusic:index];
+            break;
+        }
+        case playBtnTypeList:
+        {
+            NSLog(@"列表");
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+-(void)prepareToChangeMusic:(NSInteger)index
+{
+    NSInteger count = [MusicTool sharedMusicTool].musicList.count;
+    
+    index = index > 0 ? index % count : (index + count) % count;
+    
+    MusicModel *music = [MusicTool sharedMusicTool].musicList[index];
+    self.music = music;
+    [MusicTool sharedMusicTool].playingIndex = index;
 }
 
 @end

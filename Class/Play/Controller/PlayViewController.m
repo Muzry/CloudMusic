@@ -11,6 +11,7 @@
 #import "CloudMusic.pch"
 #import "PlayView.h"
 
+
 @interface PlayViewController ()
 
 @property (nonatomic,weak) PlayView *playView;
@@ -37,7 +38,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
 
 @end

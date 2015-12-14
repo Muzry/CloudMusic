@@ -9,7 +9,6 @@
 #import "PlayMainControlView.h"
 #import "PlayControlView.h"
 #import "PlayOtherControlView.h"
-#import "CloudMusic.pch"
 #import "PlaySlider.h"
 
 @interface PlayMainControlView()
@@ -22,7 +21,7 @@
 @property (nonatomic,weak) PlaySlider *slider;
 @property (nonatomic,weak) UILabel *totalTime;
 @property (nonatomic,weak) UILabel *currentTime;
-@property (nonatomic,assign,getter=isPlaying) BOOL playing;//播放状态
+
 @property (nonatomic,assign) playType playingType;
 
 
@@ -46,15 +45,16 @@
     UIButton *prevBtn = [[UIButton alloc]init];
     
     [prevBtn setNormalName:@"cm2_play_btn_prev" highlightName:@"cm2_play_btn_prev_prs"];
+    [prevBtn addTarget:self action:@selector(prevBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *playAndPauseBtn = [[UIButton alloc]init];
     
     [playAndPauseBtn setNormalName:@"cm2_fm_btn_pause" highlightName:@"cm2_fm_btn_pause_prs"];
     [playAndPauseBtn addTarget:self action:@selector(playBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    self.playing = YES;
     
     UIButton *nextBtn = [[UIButton alloc]init];
     [nextBtn setNormalName:@"cm2_fm_btn_next" highlightName:@"cm2_fm_btn_next_prs"];
+    [nextBtn addTarget:self action:@selector(nextBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *playTypeBtn = [[UIButton alloc]init];
     
@@ -102,15 +102,40 @@
 
 -(void)playBtnClick
 {
-    self.playing = !self.isPlaying;
-    if (!self.isPlaying)
+    if (self.isPlaying)
     {
-        [self.playAndPauseBtn setNormalName:@"cm2_fm_btn_play" highlightName:@"cm2_fm_btn_play_prs"];
+        self.playing = NO;
+        [self notifyDelegateWithBtnType:playBtnTypePause];
     }
     else
     {
+        self.playing = YES;
+        [self notifyDelegateWithBtnType:playBtnTypePlay];
+    }
+}
+
+
+-(void)setPlaying:(BOOL)playing
+{
+    if (playing)
+    {
         [self.playAndPauseBtn setNormalName:@"cm2_fm_btn_pause" highlightName:@"cm2_fm_btn_pause_prs"];
     }
+    else
+    {
+        [self.playAndPauseBtn setNormalName:@"cm2_fm_btn_play" highlightName:@"cm2_fm_btn_play_prs"];
+    }
+    _playing = playing;
+}
+
+-(void)prevBtnClick
+{
+    [self notifyDelegateWithBtnType:playBtnTypePrev];
+}
+
+-(void)nextBtnClick
+{
+    [self notifyDelegateWithBtnType:playBtnTypeNext];
 }
 
 -(void)typeBtnClick
@@ -131,7 +156,6 @@
         [self.playTypeBtn setNormalName:@"cm2_icn_loop" highlightName:@"cm2_icn_loop_prs"];
         self.playingType = playTypeLoop;
     }
-    
 }
 
 -(void)layoutSubviews
@@ -163,6 +187,14 @@
     self.slider.x = self.currentTime.x + self.currentTime.width + 10;
     self.slider.y = self.totalTime.y - 1;
     
+}
+
+-(void)notifyDelegateWithBtnType:(playBtnType)playBtnType
+{
+    if ([self.delegate respondsToSelector:@selector(playMainControl:withBtnType:)])
+    {
+        [self.delegate playMainControl:self withBtnType:playBtnType];
+    }
 }
 
 @end

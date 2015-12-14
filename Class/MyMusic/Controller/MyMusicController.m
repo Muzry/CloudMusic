@@ -12,50 +12,43 @@
 #import "MusicModel.h"
 #import "MusicCell.h"
 
-@interface MyMusicController()
 
-@property (nonatomic,strong) NSArray *musicList;
+@interface MyMusicController()
 
 @end
 
 
 @implementation MyMusicController
 
--(NSArray *)musicList
-{
-    if (!_musicList)
-    {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"songs" ofType:@"plist"];
-        _musicList = [MusicModel objectArrayWithFile:path];
-    }
-    return _musicList;
-}
-
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view setBackgroundColor:RGBColor(251, 252, 253)];
      self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.musicList.count;
+    return [MusicTool sharedMusicTool].musicList.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MusicCell * cell = [MusicCell musicCellWithTableView:tableView];
-    cell.music = self.musicList[indexPath.row];
+    cell.music = [MusicTool sharedMusicTool].musicList[indexPath.row];
     cell.num = [NSString stringWithFormat:@"%ld",indexPath.row + 1];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MusicModel *music = self.musicList[indexPath.row];
+    MusicModel *music = [MusicTool sharedMusicTool].musicList[indexPath.row];
     PlayViewController *playerVc = [[PlayViewController alloc]init];
-    playerVc.music = music;
+    if ([MusicTool sharedMusicTool].musicList[indexPath.row] != music)
+    {
+        playerVc.music = music;
+        [MusicTool sharedMusicTool].playingIndex = indexPath.row;
+    }
     [self.navigationController pushViewController:playerVc animated:YES];
 }
 

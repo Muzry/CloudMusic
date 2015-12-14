@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CloudMusic.pch"
 
 typedef enum
 {
@@ -15,6 +16,17 @@ typedef enum
     playTypeShuffle = 2
 }playType;
 
+@class PlayMainControlView;
+
+@protocol PlayMainControlDelegate <NSObject>
+
+-(void)playMainControl:(PlayMainControlView*)mainControlView withBtnType:(playBtnType)type;
+
+@end
+
 @interface PlayMainControlView : UIView
+
+@property(nonatomic,weak)id<PlayMainControlDelegate> delegate;
+@property (nonatomic,assign,getter=isPlaying) BOOL playing;//播放状态
 
 @end

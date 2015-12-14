@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MusicModel.h"
+#import "CloudMusic.pch"
 
 @interface PlayView : UIView
 
 @property (nonatomic,strong) MusicModel *music;
-
 @end
