@@ -43,7 +43,7 @@
     {
         [self setImage:[UIImage imageNamed:@"cm2_play_disc"]];
     }
-    
+
     UIImageView *bgView = [[UIImageView alloc]init];
     bgView.clipsToBounds = YES;
     
@@ -66,5 +66,6 @@
     self.bgView.layer.masksToBounds = YES;
 
 }
+
 
 @end

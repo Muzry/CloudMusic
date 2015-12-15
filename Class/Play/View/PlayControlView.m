@@ -21,9 +21,11 @@
 @property (nonatomic,weak) PlayTopView *playTopView;
 
 
+
 @end
 
 @implementation PlayControlView
+
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -88,6 +90,7 @@
     self.playTopView.width = ScreenWidth;
     self.playTopView.height = 200;
 }
+
 
 
 @end

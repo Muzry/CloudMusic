@@ -19,6 +19,8 @@
 
 @implementation PlayScrollView
 
+static bool isSet = NO;
+
 -(instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -47,29 +49,32 @@
 
 -(void)setup
 {
+    [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     
     PlayDiscView *playDiscView = [[PlayDiscView alloc]init];
     
     self.playDiscView = playDiscView;
     
     [self addSubview:playDiscView];
-    [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    self.playDiscView.size = self.playDiscView.image.size;
-    self.playDiscView.x = (ScreenWidth - self.playDiscView.width) / 2;
-    self.playDiscView.y = (self.height - self.playDiscView.height) / 2;
-    self.playDiscView.layer.anchorPoint = CGPointMake(0.5, 0.5);
     
-    self.playDiscView.backgroundColor = [UIColor orangeColor];
+    if (!isSet)
+    {
+        self.playDiscView.size = self.playDiscView.image.size;
+        self.playDiscView.x = (ScreenWidth - self.playDiscView.width) / 2;
+        self.playDiscView.y = (self.height - self.playDiscView.height) / 2;
+        isSet = YES;
+    }
 }
 
 -(void)rotateView
 {
-    self.playDiscView.transform = CGAffineTransformRotate(self.playDiscView.transform, M_PI_4 / 60);
+    double angle = M_PI / 1080;
+    self.playDiscView.transform = CGAffineTransformRotate(self.playDiscView.transform, angle);
 }
 
 @end

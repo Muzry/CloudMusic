@@ -11,7 +11,7 @@
 #import "PlayControlView.h"
 #import "PlayMainControlView.h"
 #import "UIImage+ImageEffects.h"
-#import "MusicTool.h"
+#import "CloudMusic.pch"
 
 @interface PlayView()<PlayMainControlDelegate>
 
@@ -113,6 +113,8 @@
     self.playControlView.y = 64;
     self.playControlView.width = ScreenWidth;
     self.playControlView.height = ScreenHeight - self.playMainControlView.height - self.playTabBar.height;
+    
+
 }
 
 -(void)playMainControl:(PlayMainControlView *)mainControlView withBtnType:(playBtnType)type
@@ -151,6 +153,7 @@
     }
 }
 
+
 -(void)prepareToChangeMusic:(NSInteger)index
 {
     NSInteger count = [MusicTool sharedMusicTool].musicList.count;
@@ -161,5 +164,8 @@
     self.music = music;
     [MusicTool sharedMusicTool].playingIndex = index;
 }
+
+
+
 
 @end
