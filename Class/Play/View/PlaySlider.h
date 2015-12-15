@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface PlaySlider : UISlider
-
+@property (nonatomic,weak) UIImageView *dotView;
 @end
