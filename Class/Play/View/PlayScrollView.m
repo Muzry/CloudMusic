@@ -31,15 +31,6 @@ static bool isSet = NO;
     return self;
 }
 
--(CADisplayLink *)link
-{
-    if (!_link)
-    {
-        _link = [CADisplayLink displayLinkWithTarget:self selector:@selector(rotateView)];
-    }
-    return _link;
-}
-
 -(void)setAlbumImageName:(NSString *)albumImageName
 {
     self.playDiscView.albumImageName = albumImageName;
@@ -49,13 +40,16 @@ static bool isSet = NO;
 
 -(void)setup
 {
-    [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    
     
     PlayDiscView *playDiscView = [[PlayDiscView alloc]init];
     
     self.playDiscView = playDiscView;
     
     [self addSubview:playDiscView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startToRotate) name:@"SendPlayMusicInfo" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopToRotate) name:@"SendPauseMusicInfo" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNextMusic) name:@"SendChangeMusic" object:nil];
 }
 
 -(void)layoutSubviews
@@ -69,6 +63,23 @@ static bool isSet = NO;
         self.playDiscView.y = (self.height - self.playDiscView.height) / 2;
         isSet = YES;
     }
+}
+
+-(void)startToRotate
+{
+    self.link = [CADisplayLink displayLinkWithTarget:self selector:@selector(rotateView)];
+    [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
+-(void)stopToRotate
+{
+    [self.link invalidate];
+}
+
+-(void)playNextMusic
+{
+    [self.link invalidate];
+    self.playDiscView.transform = CGAffineTransformIdentity;
 }
 
 -(void)rotateView

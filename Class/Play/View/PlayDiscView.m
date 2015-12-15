@@ -50,7 +50,6 @@
     [self addSubview:bgView];
     [self sendSubviewToBack:bgView];
     
-    
     self.bgView = bgView;
     
 }

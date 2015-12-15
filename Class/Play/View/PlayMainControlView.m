@@ -156,11 +156,19 @@
 -(void)prevBtnClick
 {
     [self notifyDelegateWithBtnType:playBtnTypePrev];
+    [self sendChangeMusic];
 }
 
 -(void)nextBtnClick
 {
     [self notifyDelegateWithBtnType:playBtnTypeNext];
+    [self sendChangeMusic];
+}
+
+-(void)sendChangeMusic
+{
+    NSNotification *notification =[NSNotification notificationWithName:@"SendChangeMusic" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 -(void)typeBtnClick

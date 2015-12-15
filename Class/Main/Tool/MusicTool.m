@@ -37,12 +37,16 @@ singleton_implementation(MusicTool)
 -(void)playMusic
 {
     [self.player play];
+    NSNotification *notification =[NSNotification notificationWithName:@"SendPlayMusicInfo" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 
 -(void)pauseMusic
 {
     [self.player pause];
+    NSNotification *notification =[NSNotification notificationWithName:@"SendPauseMusicInfo" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag

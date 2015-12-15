@@ -20,8 +20,6 @@
 @property (nonatomic,weak) PlayScrollView *playScrollView;
 @property (nonatomic,weak) PlayTopView *playTopView;
 
-
-
 @end
 
 @implementation PlayControlView
