@@ -12,11 +12,12 @@
 @interface PlayTopView()
 
 @property (nonatomic,weak) UIImageView * playNeedle;
+@property (nonatomic,assign,getter=isSetted) BOOL setPosition;
+@property (nonatomic,assign,getter=isFirstRotate) BOOL FirstRotate;
 
 @end
 
-static BOOL isSet = NO;
-static BOOL isFirstRotate = NO;
+
 @implementation PlayTopView
 
 -(instancetype)initWithFrame:(CGRect)frame
@@ -63,22 +64,22 @@ static BOOL isFirstRotate = NO;
 {
     [super layoutSubviews];
 
-    if(!isSet)
+    if(!self.isSetted)
     {
         self.playNeedle.size = self.playNeedle.image.size;
         self.playNeedle.x = ScreenWidth/2 - 28;
         self.playNeedle.y = -30;
-        isSet = YES;
+        self.setPosition = YES;
     }
 
 }
 
 -(void)startToRotate
 {
-    if(!isFirstRotate)
+    if(!self.isFirstRotate)
     {
         self.playNeedle.transform = CGAffineTransformMakeRotation(M_PI * - 30 / 180);
-        isFirstRotate = YES;
+        self.FirstRotate = YES;
     }
     [UIImageView animateWithDuration:0.8 animations:^{
         self.playNeedle.transform = CGAffineTransformRotate(self.playNeedle.transform, M_PI * 30 / 180);
@@ -104,5 +105,6 @@ static BOOL isFirstRotate = NO;
     }];
 
 }
+
 
 @end

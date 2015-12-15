@@ -113,8 +113,6 @@
     self.playControlView.y = 64;
     self.playControlView.width = ScreenWidth;
     self.playControlView.height = ScreenHeight - self.playMainControlView.height - self.playTabBar.height;
-    
-
 }
 
 -(void)playMainControl:(PlayMainControlView *)mainControlView withBtnType:(playBtnType)type
@@ -164,8 +162,6 @@
     self.music = music;
     [MusicTool sharedMusicTool].playingIndex = index;
 }
-
-
 
 
 @end

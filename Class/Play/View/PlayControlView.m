@@ -65,6 +65,8 @@
 }
 
 
+
+
 -(void)layoutSubviews
 {
     [super layoutSubviews];
@@ -88,7 +90,5 @@
     self.playTopView.width = ScreenWidth;
     self.playTopView.height = 200;
 }
-
-
 
 @end

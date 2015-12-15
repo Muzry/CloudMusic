@@ -91,7 +91,6 @@
     NSLog(@"分享");
 }
 
-
 -(void)layoutSubviews
 {
     [super layoutSubviews];
@@ -115,5 +114,7 @@
     self.singer.y =  self.title.y + self.title.height + 10;
 
 }
+
+
 
 @end

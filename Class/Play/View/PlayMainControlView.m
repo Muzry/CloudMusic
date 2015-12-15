@@ -231,11 +231,7 @@
     }
 }
 
--(void)dealloc
-{
-    //移除定时器
-    [self.link removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-}
+
 
 -(void)sliderChange:(PlaySlider *)slider
 {
@@ -277,7 +273,6 @@
 {
     [self nextBtnClick];
 }
-
 
 
 @end

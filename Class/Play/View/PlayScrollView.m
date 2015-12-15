@@ -14,12 +14,11 @@
 
 @property (nonatomic,weak) PlayDiscView * playDiscView;
 @property (nonatomic,strong) CADisplayLink *link;
+@property (nonatomic,assign,getter=isSetted) BOOL setPosition;
 
 @end
 
 @implementation PlayScrollView
-
-static bool isSet = NO;
 
 -(instancetype)initWithFrame:(CGRect)frame
 {
@@ -40,8 +39,6 @@ static bool isSet = NO;
 
 -(void)setup
 {
-    
-    
     PlayDiscView *playDiscView = [[PlayDiscView alloc]init];
     
     self.playDiscView = playDiscView;
@@ -55,13 +52,12 @@ static bool isSet = NO;
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    
-    if (!isSet)
+    if (!self.isSetted)
     {
         self.playDiscView.size = self.playDiscView.image.size;
         self.playDiscView.x = (ScreenWidth - self.playDiscView.width) / 2;
         self.playDiscView.y = (self.height - self.playDiscView.height) / 2;
-        isSet = YES;
+        self.setPosition = YES;
     }
 }
 
@@ -87,5 +83,7 @@ static bool isSet = NO;
     double angle = M_PI / 1080;
     self.playDiscView.transform = CGAffineTransformRotate(self.playDiscView.transform, angle);
 }
+
+
 
 @end

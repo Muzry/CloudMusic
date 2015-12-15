@@ -14,8 +14,6 @@
 
 @interface PlayViewController ()
 
-@property (nonatomic,weak) PlayView *playView;
-
 @end
 
 @implementation PlayViewController
@@ -26,8 +24,7 @@
     PlayView *playView = [[PlayView alloc]init];
     playView.frame = self.view.frame;
     playView.music = self.music;
-    [self.view addSubview:playView];
-
+    self.view = playView;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -39,5 +36,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end
