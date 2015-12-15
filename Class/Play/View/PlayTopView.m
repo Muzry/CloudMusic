@@ -12,8 +12,10 @@
 @interface PlayTopView()
 
 @property (nonatomic,weak) UIImageView * playNeedle;
+
 @end
 
+static bool isSet = NO;
 @implementation PlayTopView
 
 -(instancetype)initWithFrame:(CGRect)frame
@@ -44,29 +46,27 @@
         [playNeedle setImage:[UIImage imageNamed:@"cm2_play_needle_play"]];
     }
     
-    playNeedle.contentMode = UIViewContentModeScaleAspectFit;
-    
-    
-    
+    playNeedle.layer.anchorPoint = CGPointMake(0.2, 0.3);
     self.playNeedle = playNeedle;
-    
-    
-    
     [self addSubview:playNeedle];
     
     self.clipsToBounds = YES;
 }
 
 
-
-
 -(void)layoutSubviews
 {
     [super layoutSubviews];
     
-    self.playNeedle.size = self.playNeedle.image.size;
-    self.playNeedle.x = 0;
-    self.playNeedle.y = -30;
+    if(!isSet)
+    {
+        self.playNeedle.size = self.playNeedle.image.size;
+        self.playNeedle.x = ScreenWidth/2 - 20;
+        self.playNeedle.y = -30;
+        isSet = YES;
+    }
+    self.playNeedle.transform = CGAffineTransformMakeRotation(M_PI * - 30 / 180);
+    
 }
 
 @end

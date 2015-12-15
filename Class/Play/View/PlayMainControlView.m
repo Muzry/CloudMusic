@@ -11,7 +11,7 @@
 #import "PlayOtherControlView.h"
 #import "PlaySlider.h"
 
-@interface PlayMainControlView()
+@interface PlayMainControlView()<AVAudioPlayerDelegate>
 
 @property (nonatomic,weak) UIButton *prevBtn;
 @property (nonatomic,weak) UIButton *playAndPauseBtn;
@@ -21,6 +21,8 @@
 @property (nonatomic,weak) PlaySlider *slider;
 @property (nonatomic,weak) UILabel *totalTime;
 @property (nonatomic,weak) UILabel *currentTime;
+
+@property(assign,nonatomic,getter=isDragging)BOOL dragging;
 
 @property (nonatomic,assign) playType playingType;
 
@@ -95,6 +97,9 @@
     totalTime.alpha = 0.4;
     
     PlaySlider *slider = [[PlaySlider alloc]init];
+    [slider addTarget:self action:@selector(sliderChange:) forControlEvents:UIControlEventValueChanged];
+    [slider addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+    [slider addTarget:self action:@selector(stopPlay) forControlEvents:UIControlEventTouchDown];
     
     self.prevBtn = prevBtn;
     self.playAndPauseBtn = playAndPauseBtn;
@@ -116,6 +121,8 @@
     [self addSubview:slider];
     
     [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(autoPlayNextMusic) name:@"SendFinishMusicInfo" object:nil];
     
 }
 
@@ -222,16 +229,47 @@
     [self.link removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
+-(void)sliderChange:(PlaySlider *)slider
+{
+    [MusicTool sharedMusicTool].player.currentTime = slider.value;
+    self.currentTime.text = [NSString getMinuteSecondFrom:slider.value];
+}
+
+-(void)replay
+{
+    self.dragging = NO;
+    if (self.isPlaying)
+    {
+        [[MusicTool sharedMusicTool] playMusic];
+    }
+}
+
+-(void)stopPlay
+{
+    self.dragging = YES;
+    
+    [[MusicTool sharedMusicTool] pauseMusic];
+}
+
 //进度条更新
 -(void)updateSlider
 {
-    double currentTime = [MusicTool sharedMusicTool].player.currentTime;
-    self.slider.value = currentTime;
-    self.currentTime.text = [NSString getMinuteSecondFrom:currentTime];
-    if ([self.currentTime.text isEqualToString:self.totalTimeString])
+    if (self.isPlaying && self.isDragging == NO)
     {
-        [self nextBtnClick];
+        // 获取当前时间
+        double currentTime = [MusicTool sharedMusicTool].player.currentTime;
+        self.slider.value = currentTime;
+        
+        //更新时间
+        self.currentTime.text = [NSString getMinuteSecondFrom:currentTime];
     }
 }
+
+-(void)autoPlayNextMusic
+{
+    [self nextBtnClick];
+}
+
+
 
 @end

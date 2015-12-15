@@ -28,6 +28,7 @@ singleton_implementation(MusicTool)
     NSURL *musicUrl = [[NSBundle mainBundle] URLForResource:music.fileName withExtension:nil];
     
     self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:musicUrl error:nil];
+    self.player.delegate = self;
     
     //准备播放音乐
     [self.player prepareToPlay];
@@ -44,6 +45,11 @@ singleton_implementation(MusicTool)
     [self.player pause];
 }
 
+-(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    NSNotification *notification =[NSNotification notificationWithName:@"SendFinishMusicInfo" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
 
 
 @end

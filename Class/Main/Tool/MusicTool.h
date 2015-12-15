@@ -12,7 +12,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "Singleton.h"
 
-@interface MusicTool : NSObject
+@interface MusicTool : NSObject<AVAudioPlayerDelegate>
 singleton_interface(MusicTool)
 
 @property (nonatomic,strong) NSArray *musicList;

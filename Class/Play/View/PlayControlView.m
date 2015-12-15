@@ -85,7 +85,7 @@
     self.playScrollView.width = ScreenWidth;
     self.playScrollView.height = self.height - self.playOtherControlView.height - self.playScrollView.y - 20;
     
-    self.playTopView.x = ScreenWidth / 2 - 30;
+    self.playTopView.x = 0;
     self.playTopView.y = 0;
     self.playTopView.width = ScreenWidth;
     self.playTopView.height = 200;
