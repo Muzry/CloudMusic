@@ -147,8 +147,6 @@
 
 -(void)playNextMusic
 {
-    [self.link invalidate];
-    self.link = nil;
     self.playDiscView.transform = CGAffineTransformIdentity;
 }
 

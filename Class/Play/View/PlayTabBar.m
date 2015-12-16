@@ -73,7 +73,7 @@
     UILabel *singer = [[UILabel alloc]init];
     singer.text = @"演唱者";
     singer.textColor = title.textColor = [UIColor whiteColor];
-    singer.font = [UIFont systemFontOfSize:10];
+    singer.font = [UIFont systemFontOfSize:11];
     self.singer = singer;
 
     
@@ -112,7 +112,7 @@
     
     self.singer.size = [self setViewSize:self.singer.font Text:self.singer.text];
     self.singer.x = (ScreenWidth - self.singer.width) / 2;
-    self.singer.y =  self.title.y + self.title.height;
+    self.singer.y =  self.title.y + self.title.height + 2;
 
 }
 
