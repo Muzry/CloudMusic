@@ -36,12 +36,16 @@
 -(void)setSongName:(NSString *)songName
 {
     self.title.text = songName;
+    self.title.size = [self setViewSize:self.title.font Text:songName];
+    self.title.x = (ScreenWidth - self.title.width) / 2;
     _songName = songName;
 }
 
 -(void)setSingerName:(NSString *)singerName
 {
     self.singer.text = singerName;
+    self.singer.size = [self setViewSize:self.singer.font Text:singerName];
+    self.singer.x = (ScreenWidth - self.singer.width) / 2;
     _singerName = singerName;
 }
 
@@ -69,7 +73,7 @@
     UILabel *singer = [[UILabel alloc]init];
     singer.text = @"演唱者";
     singer.textColor = title.textColor = [UIColor whiteColor];
-    singer.font = [UIFont systemFontOfSize:12];
+    singer.font = [UIFont systemFontOfSize:10];
     self.singer = singer;
 
     
@@ -102,19 +106,21 @@
     self.rightBtn.x = ScreenWidth - self.rightBtn.width - 10;
     self.rightBtn.y = self.leftBtn.y;
     
-    self.title.width = 70;
-    self.title.height = 10;
+    self.title.size = [self setViewSize:self.title.font Text:self.title.text];
     self.title.x = (ScreenWidth - self.title.width) / 2;
+    self.title.y = self.rightBtn.y - 5;
     
-    self.title.y = self.rightBtn.y;
-    
-    self.singer.width = 40;
+    self.singer.size = [self setViewSize:self.singer.font Text:self.singer.text];
     self.singer.x = (ScreenWidth - self.singer.width) / 2;
-    self.singer.height = 8;
-    self.singer.y =  self.title.y + self.title.height + 10;
+    self.singer.y =  self.title.y + self.title.height;
 
 }
 
-
+-(CGSize)setViewSize:(UIFont *)font Text:(NSString *)text
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
+    CGSize size = [text boundingRectWithSize:CGSizeMake(MAXFLOAT, 0.0) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
+    return size;
+}
 
 @end

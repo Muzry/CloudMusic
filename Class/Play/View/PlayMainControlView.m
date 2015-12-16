@@ -125,6 +125,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(autoPlayNextMusic) name:@"SendFinishMusicInfo" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollPrevMusic) name:@"sendPrevMusicScroll" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollNextMusic) name:@"sendNextMusicScroll" object:nil];
 }
 
 -(void)playBtnClick
@@ -272,6 +275,16 @@
 }
 
 -(void)autoPlayNextMusic
+{
+    [self nextBtnClick];
+}
+
+-(void)scrollPrevMusic
+{
+    [self prevBtnClick];
+}
+
+-(void)scrollNextMusic
 {
     [self nextBtnClick];
 }
