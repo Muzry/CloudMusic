@@ -161,12 +161,15 @@
 {
     [self notifyDelegateWithBtnType:playBtnTypePrev];
     [self sendChangeMusic];
+    [self clickScrollToPrev];
 }
 
 -(void)nextBtnClick
 {
     [self notifyDelegateWithBtnType:playBtnTypeNext];
     [self sendChangeMusic];
+    [self clickScrollToNext];
+    
 }
 
 -(void)sendChangeMusic
@@ -274,6 +277,18 @@
     }
 }
 
+-(void)clickScrollToNext
+{
+    NSNotification *notification =[NSNotification notificationWithName:@"AutoNextMusic" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+-(void)clickScrollToPrev
+{
+    NSNotification *notification =[NSNotification notificationWithName:@"AutoPrevMusic" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
 -(void)autoPlayNextMusic
 {
     [self nextBtnClick];
@@ -281,13 +296,14 @@
 
 -(void)scrollPrevMusic
 {
-    [self prevBtnClick];
+    [self notifyDelegateWithBtnType:playBtnTypePrev];
+    [self sendChangeMusic];
 }
 
 -(void)scrollNextMusic
 {
-    [self nextBtnClick];
+    [self notifyDelegateWithBtnType:playBtnTypeNext];
+    [self sendChangeMusic];
 }
-
 
 @end

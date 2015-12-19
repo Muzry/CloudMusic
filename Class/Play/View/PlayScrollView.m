@@ -22,7 +22,7 @@
 @property (nonatomic,assign) NSInteger nextIndex;
 @property (nonatomic,assign) CGFloat startContentOffsetX;
 @property (nonatomic,assign) CGFloat endContentOffsetX;
-
+@property (nonatomic,assign,getter=isDragScroll) BOOL dragScroll;
 @property (nonatomic,strong)NSMutableArray *visibleImageViews;
 
 @end
@@ -104,8 +104,12 @@
     [self addSubview:nextDiscView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startToRotate) name:@"SendPlayMusicInfo" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopToRotate) name:@"SendPauseMusicInfo" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(autoToNextMusic) name:@"AutoNextMusic" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(autoToPrevMusic) name:@"AutoPrevMusic" object:nil];
 }
 
 -(void)layoutSubviews
@@ -165,6 +169,7 @@
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
+    self.dragScroll = YES;
     self.startContentOffsetX = scrollView.contentOffset.x;
     [self sendScrollPause];
 }
@@ -209,21 +214,27 @@
     }
     if (self.endContentOffsetX > self.startContentOffsetX) //右划 下一首
     {
-        self.albumImageName = ((MusicModel*)[MusicTool sharedMusicTool].musicList[[self judgeIndex:self.nextIndex]]).albumImage;
+        if (self.isDragScroll)
+        {
+            [self sendNextMusicScroll];
+            self.albumImageName = ((MusicModel*)[MusicTool sharedMusicTool].musicList[[self judgeIndex:self.nextIndex]]).albumImage;
+        }
         self.prevIndex = self.prevIndex + 1;
         self.nextIndex = self.nextIndex + 1;
-        [self sendNextMusicScroll];
     }
     else //左划 上一首
     {
+        if (self.isDragScroll)
+        {
+            [self sendPrevMusicScroll];
+        }
         self.albumImageName = ((MusicModel*)[MusicTool sharedMusicTool].musicList[[self judgeIndex:self.prevIndex]]).albumImage;
         self.prevIndex = self.prevIndex - 1;
         self.nextIndex = self.nextIndex - 1;
-        [self sendPrevMusicScroll];
     }
-
     [self setContentOffset:CGPointMake(self.width, 0)];
     [self playNextMusic];
+    self.dragScroll = NO;
 }
 
 -(void)sendPrevMusicScroll
@@ -248,6 +259,18 @@
 {
     NSNotification *notification =[NSNotification notificationWithName:@"sendScrollContinue" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+-(void)autoToNextMusic
+{
+    [self setContentOffset:CGPointMake(self.contentOffset.x + self.width, 0) animated:YES];
+    self.dragScroll = NO;
+}
+
+-(void)autoToPrevMusic
+{
+    [self setContentOffset:CGPointMake(self.contentOffset.x - self.width, 0) animated:YES];
+    self.dragScroll = NO;
 }
 
 

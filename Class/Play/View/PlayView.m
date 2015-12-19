@@ -51,16 +51,16 @@
     double duration = [MusicTool sharedMusicTool].player.duration;
     self.playMainControlView.totalTimeString = [NSString getMinuteSecondFrom:duration];
     self.backgroundView.alpha = 0;
-
+    
     [UIImageView animateWithDuration:1 animations:^{
-
+        
     }completion:^(BOOL finished) {
         [UIImageView animateWithDuration:2 animations:^{
             [self.backgroundView setImage:[[UIImage imageNamed:music.albumImage] applyBlurWithRadius:30 tintColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3] saturationDeltaFactor:1.2 maskImage:nil]];
             self.backgroundView.alpha = 1;
+            self.backgroundView.contentMode = UIViewContentModeScaleAspectFill;
         }];
     }];
-    
     _music = music;
 }
 
@@ -86,7 +86,7 @@
     self.maskView = maskView;
     //模糊效果的背景
     UIImageView *backgroundView = [[UIImageView alloc] init];
-    backgroundView.contentMode = UIViewContentModeScaleAspectFill;
+//    backgroundView.contentMode = UIViewContentModeScaleAspectFill;
     self.backgroundView = backgroundView;
     
     PlayTabBar *playTabBar = [[PlayTabBar alloc]init];
