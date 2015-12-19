@@ -13,7 +13,8 @@
 
 @property (nonatomic,weak) UIImageView * playNeedle;
 @property (nonatomic,assign,getter=isSetted) BOOL setPosition;
-@property (nonatomic,assign,getter=isFirstRotate) BOOL FirstRotate;
+@property (nonatomic,assign,getter=isFirstRotate) BOOL firstRotate;
+@property (nonatomic,assign,getter=isScrolled) BOOL scrollStart;
 
 @end
 
@@ -57,6 +58,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startToRotate) name:@"SendPlayMusicInfo" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopToRotate) name:@"SendPauseMusicInfo" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNextMusic) name:@"SendChangeMusic" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ScrollPause) name:@"sendScrollPause" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ScrollContinue) name:@"sendScrollContinue" object:nil];
+    
 }
 
 
@@ -79,7 +83,7 @@
     if(!self.isFirstRotate)
     {
         self.playNeedle.transform = CGAffineTransformMakeRotation(M_PI * - 30 / 180);
-        self.FirstRotate = YES;
+        self.firstRotate = YES;
     }
     [UIImageView animateWithDuration:0.8 animations:^{
         self.playNeedle.transform = CGAffineTransformRotate(self.playNeedle.transform, M_PI * 30 / 180);
@@ -97,14 +101,28 @@
 -(void)playNextMusic
 {
     [UIImageView animateWithDuration:0.3 animations:^{
-        self.playNeedle.transform = CGAffineTransformMakeRotation(M_PI * - 5 / 180);
+        self.playNeedle.transform = CGAffineTransformMakeRotation(M_PI * - 10 / 180);
     } completion:^(BOOL finished) {
         [UIImageView animateWithDuration:0.3 animations:^{
-            self.playNeedle.transform = CGAffineTransformRotate(self.playNeedle.transform, M_PI * 5 / 180);
+            self.playNeedle.transform = CGAffineTransformRotate(self.playNeedle.transform, M_PI * 10   / 180);
         }];
     }];
-
+    self.scrollStart = NO;
 }
 
+-(void)ScrollPause
+{
+    [self stopToRotate];
+    self.scrollStart = YES;
+}
+
+-(void)ScrollContinue
+{
+    if (self.scrollStart)
+    {
+        [self startToRotate];
+    }
+    self.scrollStart = NO;
+}
 
 @end

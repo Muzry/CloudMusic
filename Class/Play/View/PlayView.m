@@ -39,24 +39,34 @@
 {
     self.playTabBar.singerName = music.singer;
     self.playTabBar.songName = music.songName;
-    [self.backgroundView setImage:[[UIImage imageNamed:music.albumImage] applyBlurWithRadius:60 tintColor:[UIColor clearColor] saturationDeltaFactor:1.0 maskImage:nil]];
     
     self.playControlView.albumImageName = music.albumImage;
     
     [[MusicTool sharedMusicTool] prepareToPlayWithMusic:music];
     [[MusicTool sharedMusicTool] playMusic];
     
+    
     self.playMainControlView.playing = YES;
     
     double duration = [MusicTool sharedMusicTool].player.duration;
     self.playMainControlView.totalTimeString = [NSString getMinuteSecondFrom:duration];
+    self.backgroundView.alpha = 0;
+
+    [UIImageView animateWithDuration:1 animations:^{
+
+    }completion:^(BOOL finished) {
+        [UIImageView animateWithDuration:2 animations:^{
+            [self.backgroundView setImage:[[UIImage imageNamed:music.albumImage] applyBlurWithRadius:30 tintColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3] saturationDeltaFactor:1.2 maskImage:nil]];
+            self.backgroundView.alpha = 1;
+        }];
+    }];
     
     _music = music;
 }
 
 -(void)setup
 {
-    [self setBackgroundColor:[UIColor whiteColor]];
+    [self setBackgroundColor:[UIColor blackColor]];
     
     UIImageView *maskView = [[UIImageView alloc]init];
     
@@ -74,9 +84,9 @@
     }
     
     self.maskView = maskView;
-    
     //模糊效果的背景
     UIImageView *backgroundView = [[UIImageView alloc] init];
+    backgroundView.contentMode = UIViewContentModeScaleAspectFill;
     self.backgroundView = backgroundView;
     
     PlayTabBar *playTabBar = [[PlayTabBar alloc]init];
@@ -104,7 +114,7 @@
     self.maskView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     self.playTabBar.frame = CGRectMake(0, 0, ScreenWidth, 64);
     
-    self.playMainControlView.height = 100;
+    self.playMainControlView.height = 120;
     self.playMainControlView.width = ScreenWidth;
     self.playMainControlView.x = 0;
     self.playMainControlView.y = self.height - self.playMainControlView.height;
@@ -151,7 +161,6 @@
     }
 }
 
-
 -(void)prepareToChangeMusic:(NSInteger)index
 {
     NSInteger count = [MusicTool sharedMusicTool].musicList.count;
@@ -162,6 +171,5 @@
     self.music = music;
     [MusicTool sharedMusicTool].playingIndex = index;
 }
-
 
 @end

@@ -83,7 +83,7 @@
     self.playScrollView.x = 0;
     self.playScrollView.y = 20;
     self.playScrollView.width = ScreenWidth;
-    self.playScrollView.height = self.height - self.playOtherControlView.height - self.playScrollView.y - 20;
+    self.playScrollView.height = self.height - self.playOtherControlView.height - self.playScrollView.y;
     self.playScrollView.contentSize = CGSizeMake(self.playScrollView.width * 3, 0);
     [self.playScrollView setContentOffset:CGPointMake(self.playScrollView.width, 0)];
     

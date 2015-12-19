@@ -20,7 +20,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     PlayView *playView = [[PlayView alloc]init];
     playView.frame = self.view.frame;
     playView.music = self.music;
@@ -36,6 +35,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end

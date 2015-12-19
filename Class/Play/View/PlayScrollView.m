@@ -105,7 +105,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startToRotate) name:@"SendPlayMusicInfo" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopToRotate) name:@"SendPauseMusicInfo" object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNextMusic) name:@"SendChangeMusic" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(autoToNextMusic) name:@"AutoNextMusic" object:nil];
 }
 
 -(void)layoutSubviews
@@ -166,18 +166,19 @@
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     self.startContentOffsetX = scrollView.contentOffset.x;
+    [self sendScrollPause];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
+- (void)scrollViewDidScroll:(UIScrollView *)ScrollView {
     
-    int x = self.endContentOffsetX = aScrollView.contentOffset.x;
+    int x = self.endContentOffsetX = ScrollView.contentOffset.x;
     //往下翻一张
     if(x >= (2*self.width))
     {
         [self loadData];
     }
     //往上翻
-    if(x <= 0)
+    else if(x <= 0)
     {
         [self loadData];
     }
@@ -186,6 +187,10 @@
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self setContentOffset:CGPointMake(self.width, 0) animated:YES];
+    if (self.endContentOffsetX == self.startContentOffsetX)
+    {
+        [self sendContinue];
+    }
 }
 
 
@@ -216,6 +221,7 @@
         self.nextIndex = self.nextIndex - 1;
         [self sendPrevMusicScroll];
     }
+
     [self setContentOffset:CGPointMake(self.width, 0)];
     [self playNextMusic];
 }
@@ -229,6 +235,18 @@
 -(void)sendNextMusicScroll
 {
     NSNotification *notification =[NSNotification notificationWithName:@"sendNextMusicScroll" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+-(void)sendScrollPause
+{
+    NSNotification *notification =[NSNotification notificationWithName:@"sendScrollPause" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+-(void)sendContinue
+{
+    NSNotification *notification =[NSNotification notificationWithName:@"sendScrollContinue" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 

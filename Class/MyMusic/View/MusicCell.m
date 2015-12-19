@@ -51,7 +51,7 @@
     
     if (self)
     {
-        [self setBackgroundColor:[UIColor clearColor]];
+        [self setBackgroundColor:RGBColor(251, 252, 253)];
         UIButton *moreInfoBtn = [[UIButton alloc]init];
         [moreInfoBtn setNormalName:@"cm2_list_btn_more" highlightName:@"cm2_list_btn_more_prs"];
         [moreInfoBtn addTarget:self action:@selector(moreInfoBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -62,9 +62,9 @@
         UIView *btmSpearator = [[UIView alloc]init];
         [btmSpearator setBackgroundColor:RGBColor(220, 220, 220)];
         
-        [self addSubview:moreInfoBtn];
-        [self addSubview:numOfList];
-        [self addSubview:btmSpearator];
+        [self.contentView addSubview:moreInfoBtn];
+        [self.contentView addSubview:numOfList];
+        [self.contentView addSubview:btmSpearator];
         
         self.moreInfoBtn = moreInfoBtn;
         self.numOfList = numOfList;

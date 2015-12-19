@@ -18,7 +18,6 @@
 @property (nonatomic,weak) UIButton* leftBtn;
 @property (nonatomic,weak) UIButton* rightBtn;
 
-
 @end
 
 @implementation PlayTabBar
@@ -86,8 +85,8 @@
 
 -(void)back
 {
-    [[self superViewController].navigationController popViewControllerAnimated:YES];
     [self superViewController].navigationController.navigationBarHidden = NO;
+    [[self superViewController].navigationController popViewControllerAnimated:YES];
 }
 
 -(void)share
@@ -100,7 +99,7 @@
     [super layoutSubviews];
     self.leftBtn.size = self.leftBtn.currentBackgroundImage.size;
     self.leftBtn.x = 10;
-    self.leftBtn.y = 30;
+    self.leftBtn.y = 25;
     
     self.rightBtn.size = self.rightBtn.currentBackgroundImage.size;
     self.rightBtn.x = ScreenWidth - self.rightBtn.width - 10;
