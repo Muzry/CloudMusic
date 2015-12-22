@@ -169,8 +169,10 @@
 
 -(void)nextBtnClick
 {
+    NSLog(@"`11111");
     [self clickScrollToNext];
     [self sendChangeMusic];
+
 }
 
 -(void)sendChangeMusic
@@ -292,7 +294,14 @@
 
 -(void)autoPlayNextMusic
 {
-    [self nextBtnClick];
+    if (self.playingType == playTypeOne)
+    {
+        [[MusicTool sharedMusicTool] playMusic];
+    }
+    else
+    {
+        [self nextBtnClick];
+    }
 }
 
 -(void)scrollPrevMusic

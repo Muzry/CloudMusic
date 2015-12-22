@@ -45,6 +45,8 @@
     MusicModel *music = [MusicTool sharedMusicTool].musicList[indexPath.row];
     PlayViewController *playerVc = [[PlayViewController alloc]init];
     playerVc.music = music;
+    [[MusicTool sharedMusicTool] prepareToPlayWithMusic:music];
+    [[MusicTool sharedMusicTool] playMusic];
     [MusicTool sharedMusicTool].playingIndex = indexPath.row;
     [self.navigationController pushViewController:playerVc animated:YES];
 }

@@ -22,7 +22,8 @@
 @property (nonatomic,assign) NSInteger nextIndex;
 @property (nonatomic,assign) CGFloat startContentOffsetX;
 @property (nonatomic,assign) CGFloat endContentOffsetX;
-@property (nonatomic,strong)NSMutableArray *visibleImageViews;
+@property (nonatomic,strong) NSMutableArray *visibleImageViews;
+@property (nonatomic,assign,getter=isScroll) BOOL scroll;
 
 @end
 
@@ -214,13 +215,16 @@
     {
         [self sendNextMusicScroll];
         self.albumImageName = ((MusicModel*)[MusicTool sharedMusicTool].musicList[[self judgeIndex:self.nextIndex]]).albumImage;
+        [MusicTool sharedMusicTool].playingIndex = self.nextIndex;
         self.prevIndex = self.prevIndex + 1;
         self.nextIndex = self.nextIndex + 1;
+        
     }
     else //左划 上一首
     {
         [self sendPrevMusicScroll];
         self.albumImageName = ((MusicModel*)[MusicTool sharedMusicTool].musicList[[self judgeIndex:self.prevIndex]]).albumImage;
+        [MusicTool sharedMusicTool].playingIndex = self.prevIndex;
         self.prevIndex = self.prevIndex - 1;
         self.nextIndex = self.nextIndex - 1;
     }
@@ -256,13 +260,31 @@
 {
     self.startContentOffsetX = self.contentOffset.x;
     [self setContentOffset:CGPointMake(self.contentOffset.x + self.width, 0) animated:YES];
+    self.scroll = YES;
 }
 
 -(void)autoToPrevMusic
 {
     self.startContentOffsetX = self.contentOffset.x;
     [self setContentOffset:CGPointMake(self.contentOffset.x - self.width, 0) animated:YES];
+    self.scroll = YES;
 }
 
+-(void)willMoveToWindow:(UIWindow *)newWindow
+{
+    [self.link invalidate];
+    self.link = nil;
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SendPlayMusicInfo" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SendPauseMusicInfo" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AutoNextMusic" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AutoPrevMusic" object:nil];
+}
 
 @end

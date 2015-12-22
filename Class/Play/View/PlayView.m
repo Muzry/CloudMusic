@@ -41,11 +41,6 @@
     self.playTabBar.songName = music.songName;
     
     self.playControlView.albumImageName = music.albumImage;
-    
-    [[MusicTool sharedMusicTool] prepareToPlayWithMusic:music];
-    [[MusicTool sharedMusicTool] playMusic];
-    
-    
     self.playMainControlView.playing = YES;
     
     double duration = [MusicTool sharedMusicTool].player.duration;
@@ -58,7 +53,6 @@
         [UIImageView animateWithDuration:2 animations:^{
             [self.backgroundView setImage:[[UIImage imageNamed:music.albumImage] applyBlurWithRadius:30 tintColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3] saturationDeltaFactor:1.2 maskImage:nil]];
             self.backgroundView.alpha = 1;
-            self.backgroundView.contentMode = UIViewContentModeScaleAspectFill;
         }];
     }];
     _music = music;
@@ -86,9 +80,10 @@
     self.maskView = maskView;
     //模糊效果的背景
     UIImageView *backgroundView = [[UIImageView alloc] init];
-//    backgroundView.contentMode = UIViewContentModeScaleAspectFill;
+    backgroundView.contentMode = UIViewContentModeScaleAspectFill;
     self.backgroundView = backgroundView;
     
+    self.clipsToBounds = YES;
     PlayTabBar *playTabBar = [[PlayTabBar alloc]init];
     self.playTabBar = playTabBar;
     
@@ -147,6 +142,7 @@
         }
         case playBtnTypeNext:
         {
+            NSLog(@"%zd",[MusicTool sharedMusicTool].playingIndex);
             NSInteger index = [MusicTool sharedMusicTool].playingIndex + 1;
             [self prepareToChangeMusic:index];
             break;
@@ -170,6 +166,9 @@
     MusicModel *music = [MusicTool sharedMusicTool].musicList[index];
     self.music = music;
     [MusicTool sharedMusicTool].playingIndex = index;
+    [[MusicTool sharedMusicTool] prepareToPlayWithMusic:music];
+    [[MusicTool sharedMusicTool] playMusic];
+    NSLog(@"%zd",[MusicTool sharedMusicTool].playingIndex);
 }
 
 @end
