@@ -22,7 +22,6 @@
 @property (nonatomic,assign) NSInteger nextIndex;
 @property (nonatomic,assign) CGFloat startContentOffsetX;
 @property (nonatomic,assign) CGFloat endContentOffsetX;
-@property (nonatomic,assign,getter=isDragScroll) BOOL dragScroll;
 @property (nonatomic,strong)NSMutableArray *visibleImageViews;
 
 @end
@@ -169,16 +168,16 @@
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    self.dragScroll = YES;
     self.startContentOffsetX = scrollView.contentOffset.x;
     [self sendScrollPause];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)ScrollView {
     
-    int x = self.endContentOffsetX = ScrollView.contentOffset.x;
+    int x = ScrollView.contentOffset.x;
+    self.endContentOffsetX = ScrollView.contentOffset.x;
     //往下翻一张
-    if(x >= (2*self.width))
+    if(x >= (2 * self.width))
     {
         [self loadData];
     }
@@ -192,12 +191,11 @@
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self setContentOffset:CGPointMake(self.width, 0) animated:YES];
-    if (self.endContentOffsetX == self.startContentOffsetX)
+    if (self.startContentOffsetX == self.endContentOffsetX)
     {
         [self sendContinue];
     }
 }
-
 
 - (void)loadData
 {
@@ -214,27 +212,20 @@
     }
     if (self.endContentOffsetX > self.startContentOffsetX) //右划 下一首
     {
-        if (self.isDragScroll)
-        {
-            [self sendNextMusicScroll];
-            self.albumImageName = ((MusicModel*)[MusicTool sharedMusicTool].musicList[[self judgeIndex:self.nextIndex]]).albumImage;
-        }
+        [self sendNextMusicScroll];
+        self.albumImageName = ((MusicModel*)[MusicTool sharedMusicTool].musicList[[self judgeIndex:self.nextIndex]]).albumImage;
         self.prevIndex = self.prevIndex + 1;
         self.nextIndex = self.nextIndex + 1;
     }
     else //左划 上一首
     {
-        if (self.isDragScroll)
-        {
-            [self sendPrevMusicScroll];
-        }
+        [self sendPrevMusicScroll];
         self.albumImageName = ((MusicModel*)[MusicTool sharedMusicTool].musicList[[self judgeIndex:self.prevIndex]]).albumImage;
         self.prevIndex = self.prevIndex - 1;
         self.nextIndex = self.nextIndex - 1;
     }
     [self setContentOffset:CGPointMake(self.width, 0)];
     [self playNextMusic];
-    self.dragScroll = NO;
 }
 
 -(void)sendPrevMusicScroll
@@ -263,14 +254,14 @@
 
 -(void)autoToNextMusic
 {
+    self.startContentOffsetX = self.contentOffset.x;
     [self setContentOffset:CGPointMake(self.contentOffset.x + self.width, 0) animated:YES];
-    self.dragScroll = NO;
 }
 
 -(void)autoToPrevMusic
 {
+    self.startContentOffsetX = self.contentOffset.x;
     [self setContentOffset:CGPointMake(self.contentOffset.x - self.width, 0) animated:YES];
-    self.dragScroll = NO;
 }
 
 

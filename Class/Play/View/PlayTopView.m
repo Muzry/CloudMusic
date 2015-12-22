@@ -14,8 +14,8 @@
 @property (nonatomic,weak) UIImageView * playNeedle;
 @property (nonatomic,assign,getter=isSetted) BOOL setPosition;
 @property (nonatomic,assign,getter=isFirstRotate) BOOL firstRotate;
-@property (nonatomic,assign,getter=isScrolled) BOOL scrollStart;
-
+@property (nonatomic,assign,getter=isStop) BOOL stop;
+@property (nonatomic,assign,getter=isScroll) BOOL scroll;
 @end
 
 
@@ -49,7 +49,7 @@
         [playNeedle setImage:[UIImage imageNamed:@"cm2_play_needle_play"]];
     }
     
-    playNeedle.layer.anchorPoint = CGPointMake(0.2, 0.2);
+    playNeedle.layer.anchorPoint = CGPointMake(30 / playNeedle.image.size.width, 30 / playNeedle.image.size.height);
     self.playNeedle = playNeedle;
     [self addSubview:playNeedle];
     
@@ -58,8 +58,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startToRotate) name:@"SendPlayMusicInfo" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopToRotate) name:@"SendPauseMusicInfo" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNextMusic) name:@"SendChangeMusic" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ScrollPause) name:@"sendScrollPause" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ScrollContinue) name:@"sendScrollContinue" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollPause) name:@"sendScrollPause" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollContinue) name:@"sendScrollContinue" object:nil];
     
 }
 
@@ -83,46 +83,52 @@
     if(!self.isFirstRotate)
     {
         self.playNeedle.transform = CGAffineTransformMakeRotation(M_PI * - 30 / 180);
+        [UIImageView animateWithDuration:0.8 animations:^{
+            self.playNeedle.transform = CGAffineTransformRotate(self.playNeedle.transform, M_PI * 30 / 180);
+        }];
         self.firstRotate = YES;
     }
-    [UIImageView animateWithDuration:0.8 animations:^{
-        self.playNeedle.transform = CGAffineTransformRotate(self.playNeedle.transform, M_PI * 30 / 180);
-    }];
-    
+    if (self.stop)
+    {
+        self.playNeedle.transform = CGAffineTransformMakeRotation(M_PI * - 30 / 180);
+        [UIImageView animateWithDuration:0.8 animations:^{
+            self.playNeedle.transform = CGAffineTransformRotate(self.playNeedle.transform, M_PI * 30 / 180);
+        }];
+        self.stop = NO;
+    }
 }
 
 -(void)stopToRotate
 {
-    [UIImageView animateWithDuration:0.8 animations:^{
-        self.playNeedle.transform = CGAffineTransformMakeRotation(M_PI * - 30 / 180);
-    }];
+    if (!self.stop)
+    {
+        [UIImageView animateWithDuration:0.8 animations:^{
+            self.playNeedle.transform = CGAffineTransformRotate(self.playNeedle.transform, M_PI * -30 / 180);
+        }];
+        self.stop = YES;
+    }
+
 }
 
 -(void)playNextMusic
 {
-    [UIImageView animateWithDuration:0.3 animations:^{
-        self.playNeedle.transform = CGAffineTransformMakeRotation(M_PI * - 10 / 180);
+    [UIImageView animateWithDuration:0.4 animations:^{
+        self.playNeedle.transform = CGAffineTransformRotate(self.playNeedle.transform, M_PI * -30 / 180);
     } completion:^(BOOL finished) {
-        [UIImageView animateWithDuration:0.3 animations:^{
-            self.playNeedle.transform = CGAffineTransformRotate(self.playNeedle.transform, M_PI * 10   / 180);
+        [UIImageView animateWithDuration:0.4 animations:^{
+            self.playNeedle.transform = CGAffineTransformRotate(self.playNeedle.transform, M_PI * 30 / 180);
         }];
     }];
-    self.scrollStart = NO;
 }
 
--(void)ScrollPause
+-(void)scrollContinue
+{
+    [self startToRotate];
+}
+
+-(void)scrollPause
 {
     [self stopToRotate];
-    self.scrollStart = YES;
-}
-
--(void)ScrollContinue
-{
-    if (self.scrollStart)
-    {
-        [self startToRotate];
-    }
-    self.scrollStart = NO;
 }
 
 @end

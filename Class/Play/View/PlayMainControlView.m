@@ -149,27 +149,28 @@
     if (playing)
     {
         [self.playAndPauseBtn setNormalName:@"cm2_fm_btn_pause" highlightName:@"cm2_fm_btn_pause_prs"];
+        NSNotification *notification =[NSNotification notificationWithName:@"SendPlayMusicInfo" object:nil userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }
     else
     {
         [self.playAndPauseBtn setNormalName:@"cm2_fm_btn_play" highlightName:@"cm2_fm_btn_play_prs"];
+        NSNotification *notification =[NSNotification notificationWithName:@"SendPauseMusicInfo" object:nil userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }
     _playing = playing;
 }
 
 -(void)prevBtnClick
 {
-    [self notifyDelegateWithBtnType:playBtnTypePrev];
-    [self sendChangeMusic];
     [self clickScrollToPrev];
+    [self sendChangeMusic];
 }
 
 -(void)nextBtnClick
 {
-    [self notifyDelegateWithBtnType:playBtnTypeNext];
-    [self sendChangeMusic];
     [self clickScrollToNext];
-    
+    [self sendChangeMusic];
 }
 
 -(void)sendChangeMusic
@@ -209,7 +210,7 @@
         UIButton *btn = self.subviews[i];
         btn.size = btn.currentBackgroundImage.size;
         btn.x = i * margin + (margin - btn.size.width) / 2;
-        btn.y = (self.height - btn.height) / 2;
+        btn.y = (self.height - btn.height) / 2 + 10;
     }
     
     self.currentTime.width = 32;
@@ -297,13 +298,11 @@
 -(void)scrollPrevMusic
 {
     [self notifyDelegateWithBtnType:playBtnTypePrev];
-    [self sendChangeMusic];
 }
 
 -(void)scrollNextMusic
 {
     [self notifyDelegateWithBtnType:playBtnTypeNext];
-    [self sendChangeMusic];
 }
 
 @end
