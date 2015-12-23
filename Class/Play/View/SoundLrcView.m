@@ -32,15 +32,32 @@
 -(void)setup
 {
     SoundSlider *soundSlider = [[SoundSlider alloc]init];
+    soundSlider.maximumValue = 4.0;
+    soundSlider.minimumValue = 0.0;
+    soundSlider.value = 1.0;
+    [soundSlider addTarget:self action:@selector(sliderChange:) forControlEvents:UIControlEventValueChanged];
+    
     UIImageView *soundView = [[UIImageView alloc]init];
-    [soundView setImage:[UIImage imageNamed:@"cm2_fm_vol_speaker_silent"]];
+    [soundView setImage:[UIImage imageNamed:@"cm2_fm_vol_speaker"]];
     
     [self addSubview:soundSlider];
     [self addSubview:soundView];
     
     self.soundView = soundView;
     self.soundSlider = soundSlider;
+}
 
+-(void)sliderChange:(SoundSlider *)slider
+{
+    [[MusicTool sharedMusicTool].player setVolume:slider.value];
+    if (slider.value == 0)
+    {
+        [self.soundView setImage:[UIImage imageNamed:@"cm2_fm_vol_speaker_silent"]];
+    }
+    else
+    {
+        [self.soundView setImage:[UIImage imageNamed:@"cm2_fm_vol_speaker"]];
+    }
 }
 
 -(void)layoutSubviews

@@ -155,7 +155,6 @@
     
     self.playScrollView.x = 0;
     self.playScrollView.y = 34;
-//    self.playScrollView.backgroundColor = [UIColor blueColor];
     self.playScrollView.width = ScreenWidth;
     self.playScrollView.height = self.height - self.playOtherControlView.height - self.playScrollView.y;
     self.playScrollView.contentSize = CGSizeMake(self.playScrollView.width * 3, 0);
@@ -173,7 +172,6 @@
     
     self.maskView.x = 0;
     self.maskView.y = -64;
-//    self.maskView.backgroundColor = [UIColor redColor];
     self.maskView.width = ScreenWidth;
     self.maskView.height = ScreenHeight;
 }
