@@ -97,6 +97,7 @@
     self.showsHorizontalScrollIndicator = NO;
     self.pagingEnabled = YES;
     self.delegate = self;
+    self.userInteractionEnabled = YES;
 
     
     [self addSubview:prevDiscView];
@@ -198,6 +199,11 @@
     }
 }
 
+-(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.superview touchesBegan:touches withEvent:event];
+}
+
 - (void)loadData
 {
     //从scrollView上移除所有的subview
@@ -270,7 +276,7 @@
     self.scroll = YES;
 }
 
--(void)willMoveToWindow:(UIWindow *)newWindow
+-(void)willRemoveSubview:(UIView *)subview
 {
     [self.link invalidate];
     self.link = nil;

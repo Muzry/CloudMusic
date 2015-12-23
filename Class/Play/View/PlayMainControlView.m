@@ -11,7 +11,7 @@
 #import "PlayOtherControlView.h"
 #import "PlaySlider.h"
 
-@interface PlayMainControlView()<AVAudioPlayerDelegate>
+@interface PlayMainControlView()
 
 @property (nonatomic,weak) UIButton *prevBtn;
 @property (nonatomic,weak) UIButton *playAndPauseBtn;
@@ -23,10 +23,6 @@
 @property (nonatomic,weak) UILabel *currentTime;
 
 @property(assign,nonatomic,getter=isDragging)BOOL dragging;
-
-@property (nonatomic,assign) playType playingType;
-
-
 @property (nonatomic,strong) CADisplayLink *link;
 
 @end
@@ -58,7 +54,6 @@
     _totalTimeString = totalTimeString;
     self.slider.maximumValue = [MusicTool sharedMusicTool].player.duration;
     self.slider.minimumValue = 0;
-
 }
 
 -(void)setup
@@ -159,6 +154,7 @@
         [[NSNotificationCenter defaultCenter] postNotification:notification];
     }
     _playing = playing;
+    [MusicTool sharedMusicTool].playing = playing;
 }
 
 -(void)prevBtnClick
@@ -169,7 +165,6 @@
 
 -(void)nextBtnClick
 {
-    NSLog(@"`11111");
     [self clickScrollToNext];
     [self sendChangeMusic];
 
@@ -262,7 +257,6 @@
 -(void)stopPlay
 {
     self.dragging = YES;
-    
     [[MusicTool sharedMusicTool] pauseMusic];
 }
 

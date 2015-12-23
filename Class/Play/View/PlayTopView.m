@@ -88,7 +88,7 @@
         }];
         self.firstRotate = YES;
     }
-    if (self.stop)
+    if (self.stop && [MusicTool sharedMusicTool].isPlaying)
     {
         self.playNeedle.transform = CGAffineTransformMakeRotation(M_PI * - 30 / 180);
         [UIImageView animateWithDuration:0.8 animations:^{

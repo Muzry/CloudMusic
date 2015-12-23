@@ -16,7 +16,6 @@
 @interface PlayView()<PlayMainControlDelegate>
 
 @property (nonatomic,weak) PlayTabBar * playTabBar;
-@property (nonatomic,weak) UIImageView * maskView;
 @property (nonatomic,weak) UIImageView * backgroundView;
 @property (nonatomic,weak) PlayControlView *playControlView;
 @property (nonatomic,weak) PlayMainControlView *playMainControlView;
@@ -62,22 +61,6 @@
 {
     [self setBackgroundColor:[UIColor blackColor]];
     
-    UIImageView *maskView = [[UIImageView alloc]init];
-    
-    if (IS_IPHONE_6)
-    {
-        [maskView setImage:[UIImage imageNamed:@"cm2_play_disc_mask-ip6"]];
-    }
-    else if (IS_IPHONE_5)
-    {
-        [maskView setImage:[UIImage imageNamed:@"cm2_play_disc_mask-ip5"]];
-    }
-    else
-    {
-        [maskView setImage:[UIImage imageNamed:@"cm2_play_disc_mask"]];
-    }
-    
-    self.maskView = maskView;
     //模糊效果的背景
     UIImageView *backgroundView = [[UIImageView alloc] init];
     backgroundView.contentMode = UIViewContentModeScaleAspectFill;
@@ -95,7 +78,6 @@
     self.playMainControlView = playMainControlView;
     
     [self addSubview:backgroundView];
-    [self addSubview:maskView];
     [self addSubview:playControlView];
     [self addSubview:playMainControlView];
     [self addSubview:playTabBar];
@@ -142,7 +124,6 @@
         }
         case playBtnTypeNext:
         {
-            NSLog(@"%zd",[MusicTool sharedMusicTool].playingIndex);
             NSInteger index = [MusicTool sharedMusicTool].playingIndex + 1;
             [self prepareToChangeMusic:index];
             break;
@@ -168,7 +149,6 @@
     [MusicTool sharedMusicTool].playingIndex = index;
     [[MusicTool sharedMusicTool] prepareToPlayWithMusic:music];
     [[MusicTool sharedMusicTool] playMusic];
-    NSLog(@"%zd",[MusicTool sharedMusicTool].playingIndex);
 }
 
 @end

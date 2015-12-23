@@ -48,7 +48,6 @@
     rect.origin.x = rect.origin.x - 3.5 ;
     rect.size.width=rect.size.width + 7;
     return CGRectInset ([super thumbRectForBounds:bounds trackRect:rect value:value], 0 , 0);
-    
 }
 
 @end

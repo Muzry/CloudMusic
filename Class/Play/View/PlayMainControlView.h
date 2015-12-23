@@ -29,5 +29,6 @@ typedef enum
 @property(nonatomic,weak)id<PlayMainControlDelegate> delegate;
 @property (nonatomic,assign,getter=isPlaying) BOOL playing;//播放状态
 @property (nonatomic,copy) NSString * totalTimeString;
+@property (nonatomic,assign) playType playingType;
 
 @end

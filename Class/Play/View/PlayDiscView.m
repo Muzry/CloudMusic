@@ -51,7 +51,7 @@
     [self sendSubviewToBack:bgView];
     
     self.bgView = bgView;
-    
+    self.userInteractionEnabled = YES;
 }
 
 -(void)layoutSubviews

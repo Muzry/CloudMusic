@@ -18,6 +18,7 @@ singleton_interface(MusicTool)
 @property (nonatomic,strong) NSArray *musicList;
 @property (nonatomic,assign) NSInteger playingIndex;
 @property (nonatomic,strong) AVAudioPlayer* player;
+@property (nonatomic,assign,getter=isPlaying) BOOL playing;
 
 /** 音乐播放前的准备工作*/
 -(void)prepareToPlayWithMusic:(MusicModel *)music;
