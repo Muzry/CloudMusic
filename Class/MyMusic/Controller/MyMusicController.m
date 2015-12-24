@@ -37,7 +37,7 @@
     [self.view setBackgroundColor:RGBColor(251, 252, 253)];
     
     self.link.frameInterval = 5;
-    [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     
     UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc]init];
     [rightBarBtn setImage:[UIImage imageNamed:@"cm2_topbar_icn_playing0"]];

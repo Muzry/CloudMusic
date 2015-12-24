@@ -117,7 +117,7 @@
     [self addSubview:totalTime];
     [self addSubview:slider];
     
-    [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(autoPlayNextMusic) name:@"SendFinishMusicInfo" object:nil];
     
