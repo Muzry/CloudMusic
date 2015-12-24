@@ -130,5 +130,13 @@
 {
     [self stopToRotate];
 }
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SendPlayMusicInfo" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SendPauseMusicInfo" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SendChangeMusic" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sendScrollPause" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sendScrollContinue" object:nil];
+}
 
 @end

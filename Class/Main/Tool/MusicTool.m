@@ -47,8 +47,11 @@ singleton_implementation(MusicTool)
 
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
-    NSNotification *notification =[NSNotification notificationWithName:@"SendFinishMusicInfo" object:nil userInfo:nil];
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    if (flag)
+    {
+        NSNotification *notification =[NSNotification notificationWithName:@"SendFinishMusicInfo" object:nil userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    }
 }
 
 

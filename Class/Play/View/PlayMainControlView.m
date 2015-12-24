@@ -22,7 +22,9 @@
 @property (nonatomic,weak) UILabel *totalTime;
 @property (nonatomic,weak) UILabel *currentTime;
 
-@property(assign,nonatomic,getter=isDragging)BOOL dragging;
+@property (assign,nonatomic,getter=isDragging)BOOL dragging;
+@property (assign,nonatomic,getter=isEnter) BOOL enter;
+
 @property (nonatomic,strong) CADisplayLink *link;
 
 @end
@@ -53,7 +55,6 @@
     self.totalTime.text = totalTimeString;
     _totalTimeString = totalTimeString;
     self.slider.maximumValue = [MusicTool sharedMusicTool].player.duration;
-    self.slider.minimumValue = 0;
 }
 
 -(void)setup
@@ -167,7 +168,6 @@
 {
     [self clickScrollToNext];
     [self sendChangeMusic];
-
 }
 
 -(void)sendChangeMusic
@@ -306,6 +306,24 @@
 -(void)scrollNextMusic
 {
     [self notifyDelegateWithBtnType:playBtnTypeNext];
+}
+
+-(void)didMoveToSuperview
+{
+    if (self.isEnter)
+    {
+        [self.link invalidate];
+    }
+    self.enter = YES;
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SendFinishMusicInfo" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sendPrevMusicScroll" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sendNextMusicScroll" object:nil];
 }
 
 @end

@@ -15,16 +15,36 @@
 
 @interface MyMusicController()
 
+@property (nonatomic,strong) CADisplayLink *link;
+@property (nonatomic,assign) NSInteger count;
+
 @end
 
-
 @implementation MyMusicController
+
+-(CADisplayLink *)link
+{
+    if (!_link)
+    {
+        _link = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateImage)];
+    }
+    return _link;
+}
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:RGBColor(251, 252, 253)];
-     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.link.frameInterval = 5;
+    [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    
+    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc]init];
+    [rightBarBtn setImage:[UIImage imageNamed:@"cm2_topbar_icn_playing0"]];
+    self.count = 0;
+    self.navigationItem.rightBarButtonItem = rightBarBtn;
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -49,6 +69,43 @@
     [[MusicTool sharedMusicTool] playMusic];
     [MusicTool sharedMusicTool].playingIndex = indexPath.row;
     [self.navigationController pushViewController:playerVc animated:YES];
+}
+
+-(void)updateImage
+{
+    if([MusicTool sharedMusicTool].isPlaying)
+    {
+        self.count = (self.count + 1);
+        NSInteger count = self.count;
+        if (count == 6)
+        {
+            count = 4;
+        }
+        else if (count == 7)
+        {
+            count = 3;
+        }
+        else if (count == 8)
+        {
+            count = 2;
+        }
+        
+        else if (count == 9)
+        {
+            count = 1;
+        }
+        else if (count == 10)
+        {
+            count = 0;
+        }
+        
+        if (self.count == 10)
+        {
+            self.count = 0;
+        }
+        NSString *imageName = [NSString stringWithFormat:@"cm2_topbar_icn_playing%zd",count];
+        [self.navigationItem.rightBarButtonItem setImage:[UIImage imageNamed:imageName]];
+    }
 }
 
 @end

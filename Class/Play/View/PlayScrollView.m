@@ -24,6 +24,7 @@
 @property (nonatomic,assign) CGFloat endContentOffsetX;
 @property (nonatomic,strong) NSMutableArray *visibleImageViews;
 @property (nonatomic,assign,getter=isScroll) BOOL scroll;
+@property (nonatomic,assign,getter=isEnter) BOOL enter;
 
 @end
 
@@ -141,7 +142,7 @@
 
 -(void)startToRotate
 {
-    [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
 -(void)stopToRotate
@@ -276,10 +277,13 @@
     self.scroll = YES;
 }
 
--(void)willRemoveSubview:(UIView *)subview
+-(void)didMoveToSuperview:(UIView *)newSuperview
 {
-    [self.link invalidate];
-    self.link = nil;
+    if (self.isEnter)
+    {
+        [self.link invalidate];
+    }
+    self.enter = YES;
 }
 
 -(void)dealloc

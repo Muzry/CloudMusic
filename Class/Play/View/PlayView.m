@@ -145,9 +145,10 @@
     index = index > 0 ? index % count : (index + count) % count;
     
     MusicModel *music = [MusicTool sharedMusicTool].musicList[index];
-    self.music = music;
     [MusicTool sharedMusicTool].playingIndex = index;
     [[MusicTool sharedMusicTool] prepareToPlayWithMusic:music];
+    self.music = music;
+
     [[MusicTool sharedMusicTool] playMusic];
 }
 
