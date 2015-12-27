@@ -37,12 +37,14 @@ singleton_implementation(MusicTool)
 -(void)playMusic
 {
     [self.player play];
+    self.playing = YES;
 }
 
 
 -(void)pauseMusic
 {
     [self.player pause];
+    self.playing = NO;
 }
 
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag

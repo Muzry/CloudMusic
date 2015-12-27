@@ -155,7 +155,7 @@
         [[NSNotificationCenter defaultCenter] postNotification:notification];
     }
     _playing = playing;
-    [MusicTool sharedMusicTool].playing = playing;
+    
 }
 
 -(void)prevBtnClick

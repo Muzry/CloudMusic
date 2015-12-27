@@ -88,7 +88,12 @@
         }];
         self.firstRotate = YES;
     }
-    if (self.stop && [MusicTool sharedMusicTool].isPlaying)
+    if (self.isScroll)
+    {
+        self.scroll = NO;
+        return ;
+    }
+    if (self.stop)
     {
         self.playNeedle.transform = CGAffineTransformMakeRotation(M_PI * - 30 / 180);
         [UIImageView animateWithDuration:0.8 animations:^{
@@ -112,13 +117,19 @@
 
 -(void)playNextMusic
 {
+    if (self.stop)
+    {
+        [self startToRotate];
+        return ;
+    }
     [UIImageView animateWithDuration:0.4 animations:^{
-        self.playNeedle.transform = CGAffineTransformRotate(self.playNeedle.transform, M_PI * -30 / 180);
+        self.playNeedle.transform = CGAffineTransformRotate(self.playNeedle.transform, M_PI * -25 / 180);
     } completion:^(BOOL finished) {
         [UIImageView animateWithDuration:0.4 animations:^{
-            self.playNeedle.transform = CGAffineTransformRotate(self.playNeedle.transform, M_PI * 30 / 180);
+            self.playNeedle.transform = CGAffineTransformRotate(self.playNeedle.transform, M_PI * 25 / 180);
         }];
     }];
+    self.scroll = YES;
 }
 
 -(void)scrollContinue

@@ -16,6 +16,7 @@
 #import "MJExtension.h"
 #import "MusicTool.h"
 #import "NSString+Extension.h"
+#import "UIImage+ResizeImage.h"
 
 typedef enum
 {
