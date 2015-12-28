@@ -39,8 +39,7 @@
     self.link.frameInterval = 5;
     [self.link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     
-    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc]init];
-    [rightBarBtn setImage:[UIImage imageNamed:@"cm2_topbar_icn_playing0"]];
+    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"cm2_topbar_icn_playing0"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBtnClick)];
     self.count = 0;
     self.navigationItem.rightBarButtonItem = rightBarBtn;
     
@@ -65,9 +64,21 @@
     MusicModel *music = [MusicTool sharedMusicTool].musicList[indexPath.row];
     PlayViewController *playerVc = [[PlayViewController alloc]init];
     playerVc.music = music;
-    [[MusicTool sharedMusicTool] prepareToPlayWithMusic:music];
-    [[MusicTool sharedMusicTool] playMusic];
-    [MusicTool sharedMusicTool].playingIndex = indexPath.row;
+    [self.navigationController pushViewController:playerVc animated:YES];
+    if ([MusicTool sharedMusicTool].playingIndex != indexPath.row)
+    {
+        [[MusicTool sharedMusicTool] prepareToPlayWithMusic:music];
+        [[MusicTool sharedMusicTool] playMusic];
+        [MusicTool sharedMusicTool].playingIndex = indexPath.row;
+    }
+    
+}
+
+-(void)rightBtnClick
+{
+    MusicModel *music = [MusicTool sharedMusicTool].musicList[[MusicTool sharedMusicTool].playingIndex];
+    PlayViewController *playerVc = [[PlayViewController alloc]init];
+    playerVc.music = music;
     [self.navigationController pushViewController:playerVc animated:YES];
 }
 
