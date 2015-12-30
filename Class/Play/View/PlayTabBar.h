@@ -13,4 +13,7 @@
 @property (nonatomic,copy) NSString *songName;
 @property (nonatomic,copy) NSString *singerName;
 
+
+
+
 @end

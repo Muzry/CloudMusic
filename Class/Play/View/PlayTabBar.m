@@ -8,12 +8,13 @@
 
 #import "PlayTabBar.h"
 #import "UIView+Extension.h"
+#import "AutoScrollLabel.h"
 #import "CloudMusic.pch"
 
 
 @interface PlayTabBar()
 
-@property (nonatomic,weak) UILabel *title;
+@property (nonatomic,weak) AutoScrollLabel *title;
 @property (nonatomic,weak) UILabel *singer;
 @property (nonatomic,weak) UIButton* leftBtn;
 @property (nonatomic,weak) UIButton* rightBtn;
@@ -35,8 +36,6 @@
 -(void)setSongName:(NSString *)songName
 {
     self.title.text = songName;
-    self.title.size = [self setViewSize:self.title.font Text:songName];
-    self.title.x = (ScreenWidth - self.title.width) / 2;
     _songName = songName;
 }
 
@@ -63,15 +62,14 @@
     self.rightBtn = rightBtn;
     
     //歌曲名
-    UILabel *title = [[UILabel alloc]init];
+    AutoScrollLabel *title = [[AutoScrollLabel alloc]init];
     title.text = @"测试歌曲";
-    title.textColor = [UIColor whiteColor];
     self.title = title;
     
     // 演唱者
     UILabel *singer = [[UILabel alloc]init];
     singer.text = @"演唱者";
-    singer.textColor = title.textColor = [UIColor whiteColor];
+    singer.textColor = [UIColor whiteColor];
     singer.font = [UIFont systemFontOfSize:11];
     self.singer = singer;
 
@@ -105,13 +103,13 @@
     self.rightBtn.x = ScreenWidth - self.rightBtn.width - 10;
     self.rightBtn.y = self.leftBtn.y;
     
-    self.title.size = [self setViewSize:self.title.font Text:self.title.text];
+    self.title.size = CGSizeMake(200, 25);
     self.title.x = (ScreenWidth - self.title.width) / 2;
     self.title.y = self.rightBtn.y - 5;
     
     self.singer.size = [self setViewSize:self.singer.font Text:self.singer.text];
     self.singer.x = (ScreenWidth - self.singer.width) / 2;
-    self.singer.y =  self.title.y + self.title.height + 2;
+    self.singer.y =  self.height * 0.7;
 
 }
 

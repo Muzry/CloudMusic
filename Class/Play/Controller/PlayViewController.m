@@ -24,6 +24,7 @@
     playView.frame = self.view.frame;
     playView.music = self.music;
     self.view = playView;
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated

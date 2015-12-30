@@ -225,7 +225,6 @@
         [MusicTool sharedMusicTool].playingIndex = self.nextIndex;
         self.prevIndex = self.prevIndex + 1;
         self.nextIndex = self.nextIndex + 1;
-        
     }
     else //左划 上一首
     {
