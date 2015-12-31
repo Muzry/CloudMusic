@@ -58,6 +58,7 @@
         
         
         UILabel *numOfList = [[UILabel alloc]init];
+        numOfList.textColor = RGBColor(160, 160, 160);
         
         UIView *btmSpearator = [[UIView alloc]init];
         [btmSpearator setBackgroundColor:RGBColor(220, 220, 220)];
@@ -69,6 +70,8 @@
         self.moreInfoBtn = moreInfoBtn;
         self.numOfList = numOfList;
         self.btmSeparator = btmSpearator;
+        
+        self.detailTextLabel.textColor = RGBColor(160, 160, 160);
     }
     
     return self;
@@ -85,7 +88,7 @@
     
     self.numOfList.height = 20;
     self.numOfList.width = 20;
-    self.numOfList.x = 10;
+    self.numOfList.x = 20;
     self.numOfList.y = (self.height - self.numOfList.height) / 2;
     
     self.moreInfoBtn.size = self.moreInfoBtn.currentBackgroundImage.size;

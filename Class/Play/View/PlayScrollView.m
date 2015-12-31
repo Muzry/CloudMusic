@@ -276,7 +276,7 @@
     self.scroll = YES;
 }
 
--(void)didMoveToSuperview:(UIView *)newSuperview
+-(void)didMoveToSuperview
 {
     if (self.isEnter)
     {

@@ -69,17 +69,30 @@
     {
         [[MusicTool sharedMusicTool] prepareToPlayWithMusic:music];
         [[MusicTool sharedMusicTool] playMusic];
-        [MusicTool sharedMusicTool].playingIndex = indexPath.row;
     }
+    [MusicTool sharedMusicTool].playingIndex = indexPath.row;
     
 }
 
 -(void)rightBtnClick
 {
-    MusicModel *music = [MusicTool sharedMusicTool].musicList[[MusicTool sharedMusicTool].playingIndex];
-    PlayViewController *playerVc = [[PlayViewController alloc]init];
-    playerVc.music = music;
-    [self.navigationController pushViewController:playerVc animated:YES];
+    if ([MusicTool sharedMusicTool].playingIndex != -1)
+    {
+        MusicModel *music = [MusicTool sharedMusicTool].musicList[[MusicTool sharedMusicTool].playingIndex];
+        PlayViewController *playerVc = [[PlayViewController alloc]init];
+        playerVc.music = music;
+        [self.navigationController pushViewController:playerVc animated:YES];
+    }
+    else
+    {
+        MusicModel *music = [MusicTool sharedMusicTool].musicList[0];
+        PlayViewController *playerVc = [[PlayViewController alloc]init];
+        playerVc.music = music;
+        [[MusicTool sharedMusicTool] prepareToPlayWithMusic:music];
+        [[MusicTool sharedMusicTool] playMusic];
+        [MusicTool sharedMusicTool].playingIndex = 0;
+        [self.navigationController pushViewController:playerVc animated:YES];
+    }
 }
 
 -(void)updateImage

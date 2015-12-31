@@ -134,7 +134,11 @@
 
 -(void)scrollContinue
 {
-    [self startToRotate];
+    if ([MusicTool sharedMusicTool].isPlaying)
+    {
+        [self startToRotate];
+    }
+    
 }
 
 -(void)scrollPause
