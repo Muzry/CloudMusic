@@ -76,7 +76,7 @@
 {
     if (self.isOverFlow)
     {
-        [UIView animateWithDuration:self.firstLabel.width / 20 delay:5.0f options:0 animations:^{
+        [UIView animateWithDuration:self.firstLabel.width / 20 delay:3.0f options:0 animations:^{
             [self setContentOffset:CGPointMake(self.firstLabel.width + 40, 0)];
         } completion:^(BOOL finished) {
             [self setContentOffset:CGPointMake(0, 0)];

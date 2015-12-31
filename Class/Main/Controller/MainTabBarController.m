@@ -34,6 +34,7 @@
     
     [self.tabBar setBackgroundImage:[UIImage imageNamed:@"cm2_btm_bg"]];
     [self.tabBar setSelectedImageTintColor:[UIColor whiteColor]];
+    self.tabBar.backgroundColor = RGBColor(220, 220, 220);
     
     self.selectedIndex = 1;
     
