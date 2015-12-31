@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FindController : UIViewController
+@interface FindController : UITableViewController
 
 @end

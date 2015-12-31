@@ -133,7 +133,7 @@
             UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
             cell.textLabel.text = @"退出登陆";
             cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.textLabel.textColor = RGBColor(198, 72, 25);
+            cell.textLabel.textColor = RGBColor(198, 70, 53);
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             return cell;
         }
